@@ -1,0 +1,31 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Deploy to EC2
+      env:
+        PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+        HOSTNAME: ${{ secrets.EC2_HOSTNAME }}
+        USER_NAME: ${{ secrets.EC2_USER }}
+      run: |
+        echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+        
+        scp -o StrictHostKeyChecking=no -i private_key -r ./* ${USER_NAME}@${HOSTNAME}:/tmp/website/
+        
+        ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+          sudo rm -rf /var/www/html/*
+          sudo cp -r /tmp/website/* /var/www/html/
+          sudo chown -R nginx:nginx /var/www/html/
+          sudo chmod -R 755 /var/www/html/
+          sudo systemctl reload nginx
+          echo "Deployment completed at $(date)"
+        '
