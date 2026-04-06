@@ -1,430 +1,404 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zain Rizvi's Websitee</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="mediaqueries.css" />
-  </head>
-  <body>
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Zain Rizvi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0d0c0b;
+  --bg2:#141310;
+  --bg3:#1c1a17;
+  --ink:#f0ece4;
+  --ink2:#a09a90;
+  --ink3:#5a5550;
+  --amber:#d4842a;
+  --amber2:#f0a84a;
+  --border:#2a2724;
+  --card:#181614;
+  --fd:'Playfair Display',serif;
+  --fm:'IBM Plex Mono',monospace;
+  --fs:'IBM Plex Sans',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--fs);background:var(--bg);color:var(--ink);font-size:16px;line-height:1.7;overflow-x:hidden;cursor:none;}
 
-    <nav id="desktop-nav">
-      <div class="logo">Zain Rizvi</div>
-      <div>
-        <ul class="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
+.cursor{position:fixed;width:6px;height:6px;background:var(--amber);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s;}
+.cursor-ring{position:fixed;width:32px;height:32px;border:1px solid var(--amber);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.18s ease;opacity:0.5;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.4rem 4rem;background:rgba(13,12,11,0.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.logo{font-family:var(--fd);font-size:1.2rem;color:var(--amber);letter-spacing:0.04em;}
+.nav-links{display:flex;list-style:none;gap:2.5rem;}
+.nav-links a{font-family:var(--fm);font-size:0.72rem;color:var(--ink2);letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--amber);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:200;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--ink);transition:all 0.3s;}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--bg);flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;z-index:150;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-family:var(--fd);font-size:2.5rem;color:var(--ink);text-decoration:none;transition:color 0.2s;}
+.mobile-menu a:hover{color:var(--amber);}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+section{max-width:1100px;margin:0 auto;padding:8rem 2rem 4rem;}
+.section-label{font-family:var(--fm);font-size:0.7rem;color:var(--amber);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:3rem;display:flex;align-items:center;gap:1rem;}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+#hero{min-height:100vh;max-width:1100px;margin:0 auto;padding:0 2rem;display:flex;flex-direction:column;justify-content:center;padding-top:5rem;position:relative;}
+.hero-eyebrow{font-family:var(--fm);font-size:0.78rem;color:var(--amber);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:2rem;}
+.hero-name{font-family:var(--fd);font-size:clamp(5rem,10vw,9rem);line-height:0.95;color:var(--ink);margin-bottom:2rem;letter-spacing:-0.02em;}
+.hero-name em{font-style:italic;color:var(--amber);}
+.hero-desc{font-size:1.1rem;color:var(--ink2);max-width:500px;margin-bottom:3rem;line-height:1.7;font-weight:300;}
+.hero-btns{display:flex;gap:1.2rem;margin-bottom:3rem;flex-wrap:wrap;}
+.btn-primary{display:inline-block;background:var(--amber);color:var(--bg);padding:0.8rem 2rem;font-family:var(--fm);font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:all 0.2s;}
+.btn-primary:hover{background:var(--amber2);}
+.btn-ghost{display:inline-block;border:1px solid var(--border);color:var(--ink2);padding:0.8rem 2rem;font-family:var(--fm);font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:all 0.2s;}
+.btn-ghost:hover{border-color:var(--amber);color:var(--amber);}
+.hero-socials{display:flex;gap:2rem;}
+.hero-socials a{font-family:var(--fm);font-size:0.75rem;color:var(--ink3);letter-spacing:0.06em;text-decoration:none;transition:color 0.2s;}
+.hero-socials a:hover{color:var(--amber);}
+.hero-scroll{position:absolute;bottom:3rem;right:2rem;font-family:var(--fm);font-size:0.65rem;color:var(--ink3);letter-spacing:0.12em;text-transform:uppercase;writing-mode:vertical-rl;display:flex;align-items:center;gap:1rem;}
+.hero-scroll::before{content:'';width:1px;height:60px;background:var(--border);}
+
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.about-text h2{font-family:var(--fd);font-size:2.8rem;color:var(--ink);margin-bottom:1.5rem;line-height:1.1;}
+.about-text p{color:var(--ink2);margin-bottom:1rem;font-size:0.95rem;font-weight:300;}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+.stat{background:var(--bg2);padding:2rem 1.5rem;}
+.stat-num{font-family:var(--fd);font-size:2.8rem;color:var(--amber);line-height:1;margin-bottom:0.5rem;}
+.stat-label{font-family:var(--fm);font-size:0.68rem;color:var(--ink3);letter-spacing:0.08em;text-transform:uppercase;}
+
+.exp-list{display:flex;flex-direction:column;}
+.exp-item{display:grid;grid-template-columns:180px 1fr;gap:3rem;padding:2.5rem 0;border-top:1px solid var(--border);}
+.exp-item:last-child{border-bottom:1px solid var(--border);}
+.exp-date{font-family:var(--fm);font-size:0.72rem;color:var(--ink3);letter-spacing:0.04em;line-height:1.8;padding-top:0.3rem;}
+.exp-content h3{font-family:var(--fd);font-size:1.5rem;color:var(--ink);margin-bottom:0.2rem;}
+.exp-company{font-family:var(--fm);font-size:0.75rem;color:var(--amber);margin-bottom:1rem;letter-spacing:0.04em;}
+.exp-content ul{padding-left:1.2rem;}
+.exp-content li{color:var(--ink2);font-size:0.88rem;margin-bottom:0.4rem;font-weight:300;}
+
+#projects{max-width:100%;padding-left:0;padding-right:0;}
+#projects .section-label{max-width:1100px;margin-left:auto;margin-right:auto;padding-left:2rem;padding-right:2rem;}
+.projects-track{display:flex;gap:1.5rem;overflow-x:auto;padding:0 calc((100vw - 1100px)/2) 2rem;scrollbar-width:none;-ms-overflow-style:none;scroll-snap-type:x mandatory;}
+.projects-track::-webkit-scrollbar{display:none;}
+.project-card{flex:0 0 380px;background:var(--card);border:1px solid var(--border);padding:2.5rem;display:flex;flex-direction:column;gap:1.2rem;transition:border-color 0.25s;scroll-snap-align:start;}
+.project-card:hover{border-color:var(--amber);}
+.project-card.featured{flex:0 0 520px;background:var(--bg3);border-color:var(--amber);}
+.project-num{font-family:var(--fm);font-size:0.68rem;color:var(--ink3);letter-spacing:0.1em;}
+.project-card h3{font-family:var(--fd);font-size:1.6rem;color:var(--ink);line-height:1.2;}
+.project-stack{font-family:var(--fm);font-size:0.72rem;color:var(--ink3);letter-spacing:0.04em;}
+.project-desc{color:var(--ink2);font-size:0.88rem;line-height:1.65;font-weight:300;flex:1;}
+.project-links{display:flex;gap:1.5rem;margin-top:auto;}
+.project-links a{font-family:var(--fm);font-size:0.72rem;color:var(--amber);letter-spacing:0.06em;text-decoration:none;text-transform:uppercase;transition:opacity 0.2s;}
+.project-links a:hover{opacity:0.6;}
+.project-tags{display:flex;flex-wrap:wrap;gap:0.5rem;}
+.project-tags span{font-family:var(--fm);font-size:0.65rem;color:var(--ink3);border:1px solid var(--border);padding:0.2rem 0.7rem;letter-spacing:0.04em;}
+.projects-scroll-hint{max-width:1100px;margin:1rem auto 0;padding:0 2rem;}
+.projects-scroll-hint p{font-family:var(--fm);font-size:0.68rem;color:var(--ink3);letter-spacing:0.08em;}
+
+.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);}
+.skill-group{background:var(--bg2);padding:2rem;}
+.skill-group h4{font-family:var(--fm);font-size:0.7rem;color:var(--amber);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;}
+.skill-group p{color:var(--ink2);font-size:0.88rem;font-weight:300;line-height:1.8;}
+
+.contact-inner h2{font-family:var(--fd);font-size:clamp(3rem,6vw,5.5rem);color:var(--ink);margin-bottom:1rem;line-height:1;}
+.contact-inner>p{color:var(--ink2);max-width:480px;margin-bottom:3rem;font-weight:300;}
+.contact-links{display:flex;flex-direction:column;gap:0;}
+.contact-links a{font-family:var(--fm);font-size:0.9rem;color:var(--ink2);border-top:1px solid var(--border);padding:1.2rem 0;text-decoration:none;display:flex;justify-content:space-between;align-items:center;transition:all 0.2s;letter-spacing:0.04em;max-width:560px;}
+.contact-links a:last-child{border-bottom:1px solid var(--border);}
+.contact-links a:hover{color:var(--amber);padding-left:0.5rem;}
+
+footer{border-top:1px solid var(--border);padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center;}
+footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing:0.06em;}
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  #hero{padding-top:6rem;padding-bottom:3rem;}
+  .hero-scroll{display:none;}
+  .about-grid{grid-template-columns:1fr;gap:3rem;}
+  .exp-item{grid-template-columns:1fr;gap:0.5rem;}
+  .projects-track{padding:0 1.5rem 2rem;}
+  .project-card{flex:0 0 300px;}
+  .project-card.featured{flex:0 0 320px;}
+  .skills-grid{grid-template-columns:1fr;}
+  footer{padding:1.5rem 2rem;flex-direction:column;gap:0.5rem;text-align:center;}
+}
+@media(max-width:600px){
+  section{padding:5rem 1.5rem 3rem;}
+  .about-stats{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <div class="logo">ZR</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="toggleMenu()">About</a>
+    <a href="#experience" onclick="toggleMenu()">Experience</a>
+    <a href="#projects" onclick="toggleMenu()">Projects</a>
+    <a href="#contact" onclick="toggleMenu()">Contact</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <p class="hero-eyebrow reveal">Computer Science Co-op · University of Ottawa</p>
+  <h1 class="hero-name reveal" style="transition-delay:0.1s;">Zain<br/><em>Rizvi</em></h1>
+  <p class="hero-desc reveal" style="transition-delay:0.2s;">Building things at the intersection of data, software, and good ideas. Looking for Fall 2026 co-op opportunities in Toronto.</p>
+  <div class="hero-btns reveal" style="transition-delay:0.3s;">
+    <a href="main_resume.pdf" class="btn-primary" target="_blank">Resume</a>
+    <a href="#contact" class="btn-ghost">Get in touch</a>
+  </div>
+  <div class="hero-socials reveal" style="transition-delay:0.4s;">
+    <a href="https://linkedin.com/in/zain-rizvi-69b175215/" target="_blank">LinkedIn</a>
+    <a href="https://github.com/ZainRizvi9" target="_blank">GitHub</a>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<section id="about">
+  <div class="section-label">01 / About</div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <h2>Hey, I'm Zain.</h2>
+      <p>Third-year Computer Science Co-op student at the University of Ottawa, graduating December 2027. I like building things that are technically interesting and actually useful, whether that's ML pipelines, 3D visualizations, or full-stack web apps.</p>
+      <p>I did two terms at York Region as an IT Service Desk Analyst. Currently building projects in data engineering and machine learning, targeting downtown Toronto for Fall 2026.</p>
+      <p>I'm interested in software engineering, data, and roles where technical depth has real-world impact.</p>
+    </div>
+    <div class="about-stats reveal" style="transition-delay:0.15s;">
+      <div class="stat">
+        <div class="stat-num">3.5</div>
+        <div class="stat-label">GPA</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Co-op terms completed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Deployed projects</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">Dec 27</div>
+        <div class="stat-label">Graduation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-label">02 / Experience</div>
+  <div class="exp-list">
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <span class="exp-date">May 2024 – Aug 2024<br/>May 2025 – Aug 2025</span>
+      </div>
+      <div class="exp-content">
+        <h3>IT Service Desk Analyst</h3>
+        <p class="exp-company">York Region · Newmarket, ON</p>
+        <ul>
+          <li>Automated weekly incident reporting with SQL and Excel, cutting manual effort by about 3 hours per week across a team of 10+ technicians</li>
+          <li>Built dashboards tracking 500+ monthly incidents by category, priority, and resolution time, with findings used to inform staffing decisions</li>
+          <li>Standardized ticket taxonomy across 15+ service categories, improving data consistency for management reporting</li>
+          <li>Worked directly with technicians and managers to investigate recurring issues and maintain system documentation</li>
         </ul>
       </div>
-    </nav>
+    </div>
 
-    <nav id="hamburger-nav">
-      <div class="logo">Zain Rizvi</div>
-      <div class="hamburger-menu">
-        <div class="hamburger-icon" onclick="toggleMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div class="menu-links">
-          <li><a href="#about" onclick="toggleMenu()">About</a></li>
-          <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
-          <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
-          <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-        </div>
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <span class="exp-date">Sept 2023 – May 2024</span>
       </div>
-    </nav>
+      <div class="exp-content">
+        <h3>Director of Academic Affairs</h3>
+        <p class="exp-company">Computer Science Student Association · University of Ottawa</p>
+        <ul>
+          <li>Organized professional development events including a Nokia office tour for 50+ CS students, handling logistics and outreach end to end</li>
+          <li>Served as the primary liaison between the student body and department administration on academic policy</li>
+        </ul>
+      </div>
+    </div>
 
-    <section id = "profile">
-        <div class = "section_pic-container">
-            <img src ="ZainRizvi.JPG" alt = "Zain RizviPFP">
-        </div>
+  </div>
+</section>
 
-        <div class="section_text">
-            <p class = "section-text-p1">Hey, I'm</p>
-            <h1 class="title">Zain Rizvi</h1>
-            <avaiable class = "section-text-p2">Second Year Computer Science Student at uOttawa </p>
+<section id="projects">
+  <div class="section-label">03 / Projects</div>
+  <div class="projects-track">
 
-            <div class = "contact-info-btn-container"> 
-                <button class ="btn btn-color-2" onclick="window.open('ZainRizviResume2024.pdf')">Get My Resume</button>
-            </div> 
+    <div class="project-card featured reveal">
+      <div class="project-num">01 / Featured</div>
+      <h3>NFL Contract Value Analyzer</h3>
+      <p class="project-stack">Python · XGBoost · K-Means · scikit-learn · pandas · Streamlit · Plotly</p>
+      <p class="project-desc">ML system predicting fair market APY for 264 active NFL players. Separate XGBoost models per position achieve R2 of 0.96 for QBs and MAE under $1M for WRs and TEs. K-Means clustering discovers player archetypes without predefined labels. Built on a deterministic data pipeline joining 50,000+ contract records with nflverse stats.</p>
+      <div class="project-tags">
+        <span>XGBoost</span><span>K-Means</span><span>Feature Engineering</span><span>Streamlit</span>
+      </div>
+      <div class="project-links">
+        <a href="https://nfl-contract-analyzer.streamlit.app" target="_blank">Live</a>
+        <a href="https://youtu.be/OokofsgDGGM" target="_blank">Demo</a>
+        <a href="https://github.com/ZainRizvi9/nfl-contract-analyzer" target="_blank">GitHub</a>
+      </div>
+    </div>
 
-            <div class = "contact-info-btn-container"> 
-                <button class ="btn btn-color-1" onclick="location.href = './#contact'">Contact Info</button>
-            </div>
+    <div class="project-card reveal" style="transition-delay:0.1s;">
+      <div class="project-num">02</div>
+      <h3>FilmGrid</h3>
+      <p class="project-stack">React · Node.js · Express · MongoDB · SerpApi · Cheerio · Vercel · Railway</p>
+      <p class="project-desc">Full-stack movie theatre finder surfacing real-time showtimes for 15+ Toronto theatres. Custom Cheerio scrapers for indie theatres unavailable on Fandango. Decoupled deployment across Vercel and Railway with 2-hour TTL caching and TMDB integration for movie metadata.</p>
+      <div class="project-tags">
+        <span>Full-Stack</span><span>Web Scraping</span><span>REST API</span>
+      </div>
+      <div class="project-links">
+        <a href="https://filmgrid-flax.vercel.app" target="_blank">Live</a>
+        <a href="https://youtu.be/xm3kWe7uH_E" target="_blank">Demo</a>
+        <a href="https://github.com/ZainRizvi9/filmgrid" target="_blank">GitHub</a>
+      </div>
+    </div>
 
-            <div id="socials-container">
-                <img 
-                src="linkedin.png" 
-                alt = "Linkedin Profile"
-                class = "icon" 
-                onclick="location.href='https:linkedin.com/in/zain-rizvi-69b175215'"
-                />
+    <div class="project-card reveal" style="transition-delay:0.2s;">
+      <div class="project-num">03</div>
+      <h3>Cosmora</h3>
+      <p class="project-stack">React · Three.js · React Three Fiber · NASA API · Vercel</p>
+      <p class="project-desc">3D interactive solar system explorer with real-time free-fly navigation and NASA texture-mapped planets. Uses Kepler's orbital equations for accurate planetary positioning, live NASA asteroid data, ISS tracking, and a from-scratch KNN threat classifier in vanilla JS.</p>
+      <div class="project-tags">
+        <span>3D / WebGL</span><span>Orbital Mechanics</span><span>KNN</span>
+      </div>
+      <div class="project-links">
+        <a href="https://cosmora-mu.vercel.app" target="_blank">Live</a>
+        <a href="https://youtu.be/gGv5bNrwf8Y" target="_blank">Demo</a>
+        <a href="https://github.com/ZainRizvi9/cosmora" target="_blank">GitHub</a>
+      </div>
+    </div>
 
-                <img 
-                src="github.png" 
-                alt = "Github Profile"
-                class = "icon" 
-                onclick="location.href='https://github.com/ZainRizvi9'" 
-                />
-                
-            </div>
+    <div class="project-card reveal" style="transition-delay:0.3s;">
+      <div class="project-num">04</div>
+      <h3>FilmFlicker</h3>
+      <p class="project-stack">Python · Streamlit · Pandas · Plotly · TMDB API</p>
+      <p class="project-desc">Movie recommendation engine using cosine similarity on one-hot encoded genre vectors, a KNN vibe classifier across 15 curated film categories, and interactive visualizations including a film similarity heatmap.</p>
+      <div class="project-tags">
+        <span>Recommendation System</span><span>KNN</span><span>Data Viz</span>
+      </div>
+      <div class="project-links">
+        <a href="https://filmflicker.streamlit.app" target="_blank">Live</a>
+        <a href="https://youtu.be/OVAbEVROXw" target="_blank">Demo</a>
+      </div>
+    </div>
 
-        </div>
+  </div>
+  <div class="projects-scroll-hint reveal">
+    <p>scroll to see more projects</p>
+  </div>
+</section>
 
-    </section>
+<section id="skills">
+  <div class="section-label">04 / Skills</div>
+  <div class="skills-grid reveal">
+    <div class="skill-group">
+      <h4>Languages</h4>
+      <p>Python · SQL · JavaScript · Java · HTML/CSS · R</p>
+    </div>
+    <div class="skill-group">
+      <h4>ML and Data</h4>
+      <p>XGBoost · scikit-learn · pandas · K-Means · Feature Engineering · Plotly · Streamlit</p>
+    </div>
+    <div class="skill-group">
+      <h4>Web</h4>
+      <p>React · Node.js · Express · Three.js · MongoDB · REST APIs</p>
+    </div>
+    <div class="skill-group">
+      <h4>Tools</h4>
+      <p>Git · AWS · Docker · PostgreSQL · Nginx · VS Code · Jira</p>
+    </div>
+  </div>
+</section>
 
-    <section id="about">
-        <p class = "section-text-p1">Get To Know More</p>
-        <h1 class = "title">About Me</h1>
-        
-        <div class = "about-details-container">
+<section id="contact">
+  <div class="section-label">05 / Contact</div>
+  <div class="contact-inner reveal">
+    <h2>Let's talk.</h2>
+    <p>Open to co-op opportunities for Fall 2026. Graduating December 2027.</p>
+    <div class="contact-links">
+      <a href="mailto:rizvi-zain@hotmail.com">rizvi-zain@hotmail.com <span>↗</span></a>
+      <a href="https://linkedin.com/in/zain-rizvi-69b175215/" target="_blank">linkedin.com/in/zain-rizvi <span>↗</span></a>
+      <a href="https://github.com/ZainRizvi9" target="_blank">github.com/ZainRizvi9 <span>↗</span></a>
+    </div>
+  </div>
+</section>
 
+<footer>
+  <p>2026 Zain Rizvi</p>
+  <p>Built by hand.</p>
+</footer>
 
-            <div class = "about-containers">
-                <div class = "details-container">
-                    <img src ="experience.png" alt="experienceicon" class="icon" />
-                    <h3> Experience </h3>
-                    <p>4+ months of work experience
-                      <br /> with previous work experience in the public sector </p>
-                      <br /> 
-                      <li> Completed a 4 Month Summer Job with York Region as an IT Service Desk Analyst </li> 
-                      <br /> 
-                      <p> You can find more information within my resume! </p>
-                       
-                </div>
-                <div class = "details-container">
-                    <img src ="education.png" alt="Education Icon" class="icon" /> 
-                    <h3>Education</h3>
-                    <p>Honours B.Sc. in Computer Science at uOttawa <br /> Sep. 2023 - Dec. 2028 <br /> 3.5/4.0 GPA  </p>
-                    <br /> <li> Formerly Academic Affairs Director of uOttawa's Computer Science Student Association</li>
-                    <br>
-                </div>
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+document.querySelectorAll('a,button,.hamburger').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    ring.style.transform = 'translate(-50%,-50%) scale(1.8)';
+    ring.style.opacity = '0.3';
+    cursor.style.transform = 'translate(-50%,-50%) scale(0.5)';
+  });
+  el.addEventListener('mouseleave', () => {
+    ring.style.transform = 'translate(-50%,-50%) scale(1)';
+    ring.style.opacity = '0.5';
+    cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+  });
+});
 
-                
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
 
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-            </div > 
-
-            
-
-             <div class = "text-container"> 
-                <p> Hi, I’m Zain. I’m a passionate second-year student eager to expand my skills 
-                  and make a meaningful impact in any team I join. My professional experience 
-                  so far has been at York Region, I’ve gained valuable insights into collaboration, 
-                  effective communication, and creative problem-solving. I’m excited to bring that 
-                  energy to future opportunities. I look forward to taking on new challenges where 
-                  I can continue to grow and contribute to success.
-
-                         
-                    <br/><br/>I'm currently finishing an undergraduate degree in Honours Computer Science from the University of Ottawa and I'm available to work this upcoming summer from May 2025 to September 2025. 
-                </p> 
-
-                </div> 
-
-        </div>
-
-        <img src="arrow.png" alt = "Arrow Icon" class ="icon arrow" onclick="location.href='#experience'" /> 
-            
-    </section>
-
-    <br> 
-
-    <section id="experience">
-        <p class="section__text__p1"></p>
-        <h1 class="title">Experience</h1>
-        <div class="experience-details-container">
-          <div class="about-containers">
-            <div class="details-container">
-              <h2 class="experience-sub-title">Development Skills</h2>
-              <div class="article-container">
-                <article>
-                  <img
-                    src="checkmark.png"
-                    alt="Experience icon"
-                    class="icon"
-                  />
-                  <div>
-                    <h3>HTML</h3>
-                    <p>Experienced</p>
-                  </div>
-                </article>
-                <article>
-                  <img
-                    src="checkmark.png"
-                    alt="Experience icon"
-                    class="icon"
-                  />
-                  <div>
-                    <h3>CSS</h3>
-                    <p>Experienced</p>
-                  </div>
-                </article>
-                <article>
-                  <img
-                    src="checkmark.png"
-                    alt="Experience icon"
-                    class="icon"
-                  />
-                  <div>
-                    <h3>Java</h3>
-                    <p>Experienced</p>
-                  </div>
-                </article>
-                <article>
-                  <img
-                    src="checkmark.png"
-                    alt="Experience icon"
-                    class="icon"
-                  />
-                  <div>
-                    <h3>JavaScript</h3>
-                    <p>Moderate</p>
-                  </div>
-                </article>
-                <article>
-                  <img
-                    src="checkmark.png"
-                    alt="Experience icon"
-                    class="icon"
-                  />
-                  <div>
-                    <h3>Python</h3>
-                    <p>Intermediate</p>
-                  </div>
-                </article>
-                <article>
-                  <img
-                    src="checkmark.png"
-                    alt="Experience icon"
-                    class="icon"
-                  />
-                  <div>
-                    <h3>C# and WPF/WCF</h3>
-                    <p>Experienced</p>
-                  </div>
-                </article>
-                <article>
-                    <img
-                      src="checkmark.png"
-                      alt="Experience icon"
-                      class="icon"
-                    />
-                    <div>
-                      <h3>Azure DevOps</h3>
-                      <p>Experienced</p>
-                    </div>
-                  </article>
-
-
-                <article>
-                    <img
-                      src="checkmark.png"
-                      alt="Experience icon"
-                      class="icon"
-                    />
-                    <div>
-                      <h3>Object Oriented Programming</h3>
-                      <p>Experienced</p>
-                    </div>
-                  </article>
-
-                  <article>
-                    <img
-                      src="checkmark.png"
-                      alt="Experience icon"
-                      class="icon"
-                    />
-                    <div>
-                      <h3> SQL & SQLite </h3>
-                      <p>Experienced</p>
-                    </div>
-                  </article>
-
-              </div>
-            </div>
-            <div class="details-container">
-              <h2 class="experience-sub-title">Relevant Coursework</h2>
-              <div class="article-container">
-                <article>
-                  <img
-                    src="checkmark.png"
-                    alt="Experience icon"
-                    class="icon"
-                  />
-                  <div>
-                    <h3>Data Structures & Algorithims</h3>
-                    <p>Completed</p>
-                  </div>
-                </article>
-                <article>
-                  <img
-                    src="checkmark.png"
-                    alt="Experience icon"
-                    class="icon"
-                  />
-                  <div>
-                    <h3>Computer Architecture</h3>
-                    <p>Completed</p>
-                  </div>
-                </article>
-                <article>
-                  <img
-                    src="checkmark.png"
-                    alt="Experience icon"
-                    class="icon"
-                  />
-                  <div>
-                    <h3>Intro to Software Eng</h3>
-                    <p>Completed</p>
-                  </div>
-                </article>
-                <article>
-                  <img
-                    src="checkmark.png"
-                    alt="Experience icon"
-                    class="icon"
-                  />
-                  <div>
-                    <h3>Databases I</h3>
-                    <p>In progress</p>
-                  </div>
-                </article>
-
-                <article>
-                    <img
-                      src="checkmark.png"
-                      alt="Experience icon"
-                      class="icon"
-                    />
-                    <div>
-                      <h3>Programming Paradigms</h3>
-                      <p>In progress</p>
-                    </div>
-                  </article>
-
-                  <article>
-                    <img 
-                    src="checkmark.png"
-                    alt="Experience icon"
-                    class="icon"
-                    />
-                    <div>
-                      <h3>Intro to OOP</h3>
-                      <p>Completed</p>
-                    </div>
-                  </article>
-
-                  <article>
-                    <img 
-                    src="checkmark.png"
-                    alt="Experience icon"
-                    class="icon"
-                    />
-                    <div>
-                      <h3> Digital Systems</h3>
-                      <p>Completed</p>
-                    </div>
-                  </article>
-                
-              </div>
-            </div>
-          </div>
-        </div>
-        <img
-          src="arrow.png"
-          alt="Arrow icon"
-          class="icon arrow"
-          onclick="location.href='./#projects'"
-        />
-
-        <section id="projects">
-            <h1 class="title">Browse Some of My Projects</h1>
-            <div class="experience-details-container">
-              <div class="about-containers">
-                <div class="details-container color-container">
-                  <div class="article-container">
-                    <img
-                      src="crowdsync.png"
-                      alt="MERN Expense Tracker (Full-Stack Web App)"
-                      class="project-img"
-                    />
-                  </div>
-                  <h2 class="experience-sub-title project-title">MERN Expense Tracker (Full-Stack Web App)</h2>
-                  <div class="btn-container">
-                    <button
-                      class="btn btn-color-2 project-btn"
-                      onclick="location.href='https://github.com/ZainRizvi9/MernExpenseTracker'"
-                    >
-                      Github
-                    </button>
-
-
-            <div class ="outro" >
-                <h3>Like What You See?</h3>
-                <p>Feel free to take a look at some of my other projects, you can find more at my GitHub Repository and stay tuned, there are some new ones that are still work in progresses!</p>
-
-
-            </div>
-
-            </div>
-            <img
-              src="arrow.png"
-              alt="Arrow icon"
-              class="icon arrow"
-              onclick="location.href='./#contact'"
-            />
-          </section>
-
-          <section id="contact">
-            <h1 class="title">Get in Touch! <br /> Contact Me</h1>
-            <div class="contact-info-upper-container">
-              <div class="contact-info-container">
-                <img
-                  src="email.png"
-                  alt="Email icon"
-                  class="icon contact-icon email-icon"
-                />
-                <p><a href="mailto:srizv034@uottawa.ca">srizv034@uottawa.ca</a></p>
-              </div>
-              <div class="contact-info-container">
-                <img
-                  src="linkedin.png"
-                  alt="LinkedIn icon"
-                  class="icon contact-icon"
-                />
-                <p><a href="https:linkedin.com/in/zain-rizvi-69b175215">LinkedIn</a></p>
-              </div>
-            </div>
-        
-            <div class ="outro" >
-                <h3>I am available to work for 4 months beginning May 2025!</h3>
-                <p>If you have a project or opportunity you'd like to discuss with me, <br/> feel free to message me anytime!</p>
-
-
-            </div>
-          </section>
-
-
-          <footer>
-            <nav>
-              <div class="nav-links-container">
-                <ul class="nav-links">
-                  <li><a href="#about">About</a></li>
-                  <li><a href="#experience">Experience</a></li>
-                  <li><a href="#projects">Projects</a></li>
-                  <li><a href="#contact">Contact</a></li>
-                </ul>
-              </div>
-            </nav>
-            <p>Copyright &#169; 2024 Zain Rizvi. All Rights Reserved. </p>
-          </footer>
-
-    
-    <script src="script.js"></script>
-    </body>
-    </html>
+if ('ontouchstart' in window) {
+  cursor.style.display = 'none';
+  ring.style.display = 'none';
+  document.body.style.cursor = 'auto';
+}
+</script>
+</body>
+</html>
