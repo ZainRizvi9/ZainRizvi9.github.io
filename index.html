@@ -25,10 +25,8 @@
 }
 html{scroll-behavior:smooth;}
 body{font-family:var(--fs);background:var(--bg);color:var(--ink);font-size:16px;line-height:1.7;overflow-x:hidden;cursor:none;}
-
 .cursor{position:fixed;width:6px;height:6px;background:var(--amber);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s;}
 .cursor-ring{position:fixed;width:32px;height:32px;border:1px solid var(--amber);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.18s ease;opacity:0.5;}
-
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.4rem 4rem;background:rgba(13,12,11,0.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
 .logo{font-family:var(--fd);font-size:1.2rem;color:var(--amber);letter-spacing:0.04em;}
 .nav-links{display:flex;list-style:none;gap:2.5rem;}
@@ -40,14 +38,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .mobile-menu.open{display:flex;}
 .mobile-menu a{font-family:var(--fd);font-size:2.5rem;color:var(--ink);text-decoration:none;transition:color 0.2s;}
 .mobile-menu a:hover{color:var(--amber);}
-
 .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
 .reveal.visible{opacity:1;transform:none;}
-
 section{max-width:1100px;margin:0 auto;padding:8rem 2rem 4rem;}
 .section-label{font-family:var(--fm);font-size:0.7rem;color:var(--amber);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:3rem;display:flex;align-items:center;gap:1rem;}
 .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
-
 #hero{min-height:100vh;max-width:1100px;margin:0 auto;padding:0 2rem;display:flex;flex-direction:column;justify-content:center;padding-top:5rem;position:relative;}
 .hero-eyebrow{font-family:var(--fm);font-size:0.78rem;color:var(--amber);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:2rem;}
 .hero-name{font-family:var(--fd);font-size:clamp(5rem,10vw,9rem);line-height:0.95;color:var(--ink);margin-bottom:2rem;letter-spacing:-0.02em;}
@@ -63,7 +58,6 @@ section{max-width:1100px;margin:0 auto;padding:8rem 2rem 4rem;}
 .hero-socials a:hover{color:var(--amber);}
 .hero-scroll{position:absolute;bottom:3rem;right:2rem;font-family:var(--fm);font-size:0.65rem;color:var(--ink3);letter-spacing:0.12em;text-transform:uppercase;writing-mode:vertical-rl;display:flex;align-items:center;gap:1rem;}
 .hero-scroll::before{content:'';width:1px;height:60px;background:var(--border);}
-
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
 .about-text h2{font-family:var(--fd);font-size:2.8rem;color:var(--ink);margin-bottom:1.5rem;line-height:1.1;}
 .about-text p{color:var(--ink2);margin-bottom:1rem;font-size:0.95rem;font-weight:300;}
@@ -71,7 +65,6 @@ section{max-width:1100px;margin:0 auto;padding:8rem 2rem 4rem;}
 .stat{background:var(--bg2);padding:2rem 1.5rem;}
 .stat-num{font-family:var(--fd);font-size:2.8rem;color:var(--amber);line-height:1;margin-bottom:0.5rem;}
 .stat-label{font-family:var(--fm);font-size:0.68rem;color:var(--ink3);letter-spacing:0.08em;text-transform:uppercase;}
-
 .exp-list{display:flex;flex-direction:column;}
 .exp-item{display:grid;grid-template-columns:180px 1fr;gap:3rem;padding:2.5rem 0;border-top:1px solid var(--border);}
 .exp-item:last-child{border-bottom:1px solid var(--border);}
@@ -80,7 +73,6 @@ section{max-width:1100px;margin:0 auto;padding:8rem 2rem 4rem;}
 .exp-company{font-family:var(--fm);font-size:0.75rem;color:var(--amber);margin-bottom:1rem;letter-spacing:0.04em;}
 .exp-content ul{padding-left:1.2rem;}
 .exp-content li{color:var(--ink2);font-size:0.88rem;margin-bottom:0.4rem;font-weight:300;}
-
 #projects{max-width:100%;padding-left:0;padding-right:0;}
 #projects .section-label{max-width:1100px;margin-left:auto;margin-right:auto;padding-left:2rem;padding-right:2rem;}
 .projects-track{display:flex;gap:1.5rem;overflow-x:auto;padding:0 calc((100vw - 1100px)/2) 2rem;scrollbar-width:none;-ms-overflow-style:none;scroll-snap-type:x mandatory;}
@@ -99,22 +91,18 @@ section{max-width:1100px;margin:0 auto;padding:8rem 2rem 4rem;}
 .project-tags span{font-family:var(--fm);font-size:0.65rem;color:var(--ink3);border:1px solid var(--border);padding:0.2rem 0.7rem;letter-spacing:0.04em;}
 .projects-scroll-hint{max-width:1100px;margin:1rem auto 0;padding:0 2rem;}
 .projects-scroll-hint p{font-family:var(--fm);font-size:0.68rem;color:var(--ink3);letter-spacing:0.08em;}
-
 .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);}
 .skill-group{background:var(--bg2);padding:2rem;}
 .skill-group h4{font-family:var(--fm);font-size:0.7rem;color:var(--amber);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;}
 .skill-group p{color:var(--ink2);font-size:0.88rem;font-weight:300;line-height:1.8;}
-
 .contact-inner h2{font-family:var(--fd);font-size:clamp(3rem,6vw,5.5rem);color:var(--ink);margin-bottom:1rem;line-height:1;}
 .contact-inner>p{color:var(--ink2);max-width:480px;margin-bottom:3rem;font-weight:300;}
 .contact-links{display:flex;flex-direction:column;gap:0;}
 .contact-links a{font-family:var(--fm);font-size:0.9rem;color:var(--ink2);border-top:1px solid var(--border);padding:1.2rem 0;text-decoration:none;display:flex;justify-content:space-between;align-items:center;transition:all 0.2s;letter-spacing:0.04em;max-width:560px;}
 .contact-links a:last-child{border-bottom:1px solid var(--border);}
 .contact-links a:hover{color:var(--amber);padding-left:0.5rem;}
-
 footer{border-top:1px solid var(--border);padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center;}
 footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing:0.06em;}
-
 @media(max-width:900px){
   nav{padding:1rem 1.5rem;}
   .nav-links{display:none;}
@@ -136,10 +124,8 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
 </style>
 </head>
 <body>
-
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
-
 <nav>
   <div class="logo">ZR</div>
   <ul class="nav-links">
@@ -179,9 +165,9 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
   <div class="about-grid">
     <div class="about-text reveal">
       <h2>Hey, I'm Zain.</h2>
-      <p>Third-year Computer Science Co-op student at the University of Ottawa, graduating December 2027. I like building things that are technically interesting and actually useful, whether that's ML pipelines, 3D visualizations, or full-stack web apps.</p>
-      <p>I did two terms at York Region as an IT Service Desk Analyst. Currently building projects in data engineering and machine learning, targeting downtown Toronto for Fall 2026.</p>
-      <p>I'm interested in software engineering, data, and roles where technical depth has real-world impact.</p>
+      <p>Third-year Computer Science Co-op student at the University of Ottawa, graduating December 2027. I like building things that are technically interesting and actually useful, whether that's ML pipelines, security tools, or full-stack web apps.</p>
+      <p>I did two terms at York Region as an IT Service Desk Analyst. Currently building projects in data engineering, machine learning, and cloud security, targeting downtown Toronto for Fall 2026.</p>
+      <p>I'm interested in software engineering, data, and security roles where technical depth has real-world impact.</p>
     </div>
     <div class="about-stats reveal" style="transition-delay:0.15s;">
       <div class="stat">
@@ -193,7 +179,7 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
         <div class="stat-label">Co-op terms completed</div>
       </div>
       <div class="stat">
-        <div class="stat-num">4</div>
+        <div class="stat-num">5</div>
         <div class="stat-label">Deployed projects</div>
       </div>
       <div class="stat">
@@ -207,7 +193,6 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
 <section id="experience">
   <div class="section-label">02 / Experience</div>
   <div class="exp-list">
-
     <div class="exp-item reveal">
       <div class="exp-meta">
         <span class="exp-date">May 2024 – Aug 2024<br/>May 2025 – Aug 2025</span>
@@ -223,7 +208,6 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
         </ul>
       </div>
     </div>
-
     <div class="exp-item reveal">
       <div class="exp-meta">
         <span class="exp-date">Sept 2023 – May 2024</span>
@@ -237,7 +221,6 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
         </ul>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -260,8 +243,23 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
       </div>
     </div>
 
-    <div class="project-card reveal" style="transition-delay:0.1s;">
+    <div class="project-card reveal" style="transition-delay:0.05s;">
       <div class="project-num">02</div>
+      <h3>GitHub Secret Scanner</h3>
+      <p class="project-stack">Python · Shannon Entropy · Regex · PyGithub · Streamlit · Plotly</p>
+      <p class="project-desc">Two-layer credential detection engine scanning public repos for exposed secrets. Pattern matching across 14 credential types combined with Shannon entropy analysis to catch secrets patterns miss. Each finding includes real-world impact, attack vector, and remediation steps.</p>
+      <div class="project-tags">
+        <span>Security</span><span>Entropy Detection</span><span>OSINT</span>
+      </div>
+      <div class="project-links">
+        <a href="https://git-scanner.streamlit.app" target="_blank">Live</a>
+        <a href="https://youtu.be/oLlbh0-Y8w8" target="_blank">Demo</a>
+        <a href="https://github.com/ZainRizvi9/github-secret-scanner" target="_blank">GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal" style="transition-delay:0.1s;">
+      <div class="project-num">03</div>
       <h3>FilmGrid</h3>
       <p class="project-stack">React · Node.js · Express · MongoDB · SerpApi · Cheerio · Vercel · Railway</p>
       <p class="project-desc">Full-stack movie theatre finder surfacing real-time showtimes for 15+ Toronto theatres. Custom Cheerio scrapers for indie theatres unavailable on Fandango. Decoupled deployment across Vercel and Railway with 2-hour TTL caching and TMDB integration for movie metadata.</p>
@@ -276,7 +274,7 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
     </div>
 
     <div class="project-card reveal" style="transition-delay:0.2s;">
-      <div class="project-num">03</div>
+      <div class="project-num">04</div>
       <h3>Cosmora</h3>
       <p class="project-stack">React · Three.js · React Three Fiber · NASA API · Vercel</p>
       <p class="project-desc">3D interactive solar system explorer with real-time free-fly navigation and NASA texture-mapped planets. Uses Kepler's orbital equations for accurate planetary positioning, live NASA asteroid data, ISS tracking, and a from-scratch KNN threat classifier in vanilla JS.</p>
@@ -291,7 +289,7 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
     </div>
 
     <div class="project-card reveal" style="transition-delay:0.3s;">
-      <div class="project-num">04</div>
+      <div class="project-num">05</div>
       <h3>FilmFlicker</h3>
       <p class="project-stack">Python · Streamlit · Pandas · Plotly · TMDB API</p>
       <p class="project-desc">Movie recommendation engine using cosine similarity on one-hot encoded genre vectors, a KNN vibe classifier across 15 curated film categories, and interactive visualizations including a film similarity heatmap.</p>
@@ -318,8 +316,8 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
       <p>Python · SQL · JavaScript · Java · HTML/CSS · R</p>
     </div>
     <div class="skill-group">
-      <h4>ML and Data</h4>
-      <p>XGBoost · scikit-learn · pandas · K-Means · Feature Engineering · Plotly · Streamlit</p>
+      <h4>Security and ML</h4>
+      <p>Shannon entropy · Regex · XGBoost · scikit-learn · pandas · K-Means · Plotly · Streamlit</p>
     </div>
     <div class="skill-group">
       <h4>Web</h4>
@@ -379,11 +377,9 @@ document.querySelectorAll('a,button,.hamburger').forEach(el => {
     cursor.style.transform = 'translate(-50%,-50%) scale(1)';
   });
 });
-
 function toggleMenu() {
   document.getElementById('mobileMenu').classList.toggle('open');
 }
-
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -393,7 +389,6 @@ const observer = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
 if ('ontouchstart' in window) {
   cursor.style.display = 'none';
   ring.style.display = 'none';
