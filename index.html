@@ -101,6 +101,7 @@ section{max-width:1100px;margin:0 auto;padding:8rem 2rem 4rem;}
 .contact-links a{font-family:var(--fm);font-size:0.9rem;color:var(--ink2);border-top:1px solid var(--border);padding:1.2rem 0;text-decoration:none;display:flex;justify-content:space-between;align-items:center;transition:all 0.2s;letter-spacing:0.04em;max-width:560px;}
 .contact-links a:last-child{border-bottom:1px solid var(--border);}
 .contact-links a:hover{color:var(--amber);padding-left:0.5rem;}
+.contact-email{font-family:var(--fm);font-size:0.9rem;color:var(--ink2);border-top:1px solid var(--border);padding:1.2rem 0;letter-spacing:0.04em;max-width:560px;}
 footer{border-top:1px solid var(--border);padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center;}
 footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing:0.06em;}
 @media(max-width:900px){
@@ -179,7 +180,7 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
         <div class="stat-label">Co-op terms completed</div>
       </div>
       <div class="stat">
-        <div class="stat-num">5</div>
+        <div class="stat-num">6</div>
         <div class="stat-label">Deployed projects</div>
       </div>
       <div class="stat">
@@ -201,10 +202,10 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
         <h3>IT Service Desk Analyst</h3>
         <p class="exp-company">York Region · Newmarket, ON</p>
         <ul>
-          <li>Automated weekly incident reporting with SQL and Excel, cutting manual effort by about 3 hours per week across a team of 10+ technicians</li>
-          <li>Built dashboards tracking 500+ monthly incidents by category, priority, and resolution time, with findings used to inform staffing decisions</li>
-          <li>Standardized ticket taxonomy across 15+ service categories, improving data consistency for management reporting</li>
-          <li>Worked directly with technicians and managers to investigate recurring issues and maintain system documentation</li>
+          <li>Triaged and investigated 500+ monthly IT incidents across 15+ service categories, identifying recurring issue patterns and coordinating with technicians to resolve root causes</li>
+          <li>Built dashboards tracking incident volume, priority, and resolution time, surfacing trends used to inform infrastructure and staffing decisions across a team of 10+ technicians</li>
+          <li>Standardized ticket taxonomy and documentation practices to improve data consistency and enable accurate security and operational reporting for management</li>
+          <li>Coordinated with vendors and internal teams to manage software, hardware, and access-related requests, maintaining accurate records for audit and compliance purposes</li>
         </ul>
       </div>
     </div>
@@ -230,9 +231,24 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
 
     <div class="project-card featured reveal">
       <div class="project-num">01 / Featured</div>
+      <h3>SalesRadar</h3>
+      <p class="project-stack">React · Node.js · Express · IBM Watson NLU · Salesforce API · NewsAPI · Vercel · Railway</p>
+      <p class="project-desc">B2B account intelligence platform that analyzes real-time news through IBM Watson NLU to extract buying signals and score purchase intent. Features real-time search, account comparison mode, and one-click Salesforce CRM integration via OAuth 2.0 REST API that creates a Lead with the full intelligence report attached.</p>
+      <div class="project-tags">
+        <span>IBM Watson NLU</span><span>Salesforce API</span><span>OAuth 2.0</span><span>Full-Stack</span>
+      </div>
+      <div class="project-links">
+        <a href="https://sales-radar-seven.vercel.app" target="_blank">Live</a>
+        <a href="https://youtu.be/Jel0U2JIpSE" target="_blank">Demo</a>
+        <a href="https://github.com/ZainRizvi9/SalesRadar" target="_blank">GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal" style="transition-delay:0.05s;">
+      <div class="project-num">02</div>
       <h3>NFL Contract Value Analyzer</h3>
       <p class="project-stack">Python · XGBoost · K-Means · scikit-learn · pandas · Streamlit · Plotly</p>
-      <p class="project-desc">ML system predicting fair market APY for 264 active NFL players. Separate XGBoost models per position achieve R2 of 0.96 for QBs and MAE under $1M for WRs and TEs. K-Means clustering discovers player archetypes without predefined labels. Built on a deterministic data pipeline joining 50,000+ contract records with nflverse stats.</p>
+      <p class="project-desc">ML system predicting fair market APY for 264 active NFL players. Separate XGBoost models per position achieve R2 of 0.96 for QBs and MAE under $1M for WRs and TEs. K-Means clustering discovers player archetypes without predefined labels. Built on a deterministic pipeline joining 50,000+ contract records with nflverse stats.</p>
       <div class="project-tags">
         <span>XGBoost</span><span>K-Means</span><span>Feature Engineering</span><span>Streamlit</span>
       </div>
@@ -243,11 +259,11 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
       </div>
     </div>
 
-    <div class="project-card reveal" style="transition-delay:0.05s;">
-      <div class="project-num">02</div>
+    <div class="project-card reveal" style="transition-delay:0.1s;">
+      <div class="project-num">03</div>
       <h3>GitHub Secret Scanner</h3>
       <p class="project-stack">Python · Shannon Entropy · Regex · PyGithub · Streamlit · Plotly</p>
-      <p class="project-desc">Two-layer credential detection engine scanning public repos for exposed secrets. Pattern matching across 14 credential types combined with Shannon entropy analysis to catch secrets patterns miss. Each finding includes real-world impact, attack vector, and remediation steps.</p>
+      <p class="project-desc">Two-layer credential detection engine scanning public repos for exposed secrets. Pattern matching across 14 credential types combined with Shannon entropy analysis to catch secrets patterns miss. Each finding includes real-world impact, attack vector, and remediation steps modeled after GitGuardian and TruffleHog.</p>
       <div class="project-tags">
         <span>Security</span><span>Entropy Detection</span><span>OSINT</span>
       </div>
@@ -258,8 +274,8 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
       </div>
     </div>
 
-    <div class="project-card reveal" style="transition-delay:0.1s;">
-      <div class="project-num">03</div>
+    <div class="project-card reveal" style="transition-delay:0.15s;">
+      <div class="project-num">04</div>
       <h3>FilmGrid</h3>
       <p class="project-stack">React · Node.js · Express · MongoDB · SerpApi · Cheerio · Vercel · Railway</p>
       <p class="project-desc">Full-stack movie theatre finder surfacing real-time showtimes for 15+ Toronto theatres. Custom Cheerio scrapers for indie theatres unavailable on Fandango. Decoupled deployment across Vercel and Railway with 2-hour TTL caching and TMDB integration for movie metadata.</p>
@@ -274,7 +290,7 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
     </div>
 
     <div class="project-card reveal" style="transition-delay:0.2s;">
-      <div class="project-num">04</div>
+      <div class="project-num">05</div>
       <h3>Cosmora</h3>
       <p class="project-stack">React · Three.js · React Three Fiber · NASA API · Vercel</p>
       <p class="project-desc">3D interactive solar system explorer with real-time free-fly navigation and NASA texture-mapped planets. Uses Kepler's orbital equations for accurate planetary positioning, live NASA asteroid data, ISS tracking, and a from-scratch KNN threat classifier in vanilla JS.</p>
@@ -288,8 +304,8 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
       </div>
     </div>
 
-    <div class="project-card reveal" style="transition-delay:0.3s;">
-      <div class="project-num">05</div>
+    <div class="project-card reveal" style="transition-delay:0.25s;">
+      <div class="project-num">06</div>
       <h3>FilmFlicker</h3>
       <p class="project-stack">Python · Streamlit · Pandas · Plotly · TMDB API</p>
       <p class="project-desc">Movie recommendation engine using cosine similarity on one-hot encoded genre vectors, a KNN vibe classifier across 15 curated film categories, and interactive visualizations including a film similarity heatmap.</p>
@@ -316,16 +332,16 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
       <p>Python · SQL · JavaScript · Java · HTML/CSS · R</p>
     </div>
     <div class="skill-group">
-      <h4>Security and ML</h4>
-      <p>Shannon entropy · Regex · XGBoost · scikit-learn · pandas · K-Means · Plotly · Streamlit</p>
+      <h4>AI and ML</h4>
+      <p>IBM Watson NLU · XGBoost · scikit-learn · pandas · K-Means · Shannon entropy · Plotly · Streamlit</p>
     </div>
     <div class="skill-group">
       <h4>Web</h4>
-      <p>React · Node.js · Express · Three.js · MongoDB · REST APIs</p>
+      <p>React · Node.js · Express · Three.js · MongoDB · REST APIs · Salesforce API</p>
     </div>
     <div class="skill-group">
       <h4>Tools</h4>
-      <p>Git · AWS · Docker · PostgreSQL · Nginx · VS Code · Jira</p>
+      <p>Git · AWS · Docker · PostgreSQL · Nginx · VS Code · Agile · SDLC</p>
     </div>
   </div>
 </section>
@@ -336,7 +352,7 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
     <h2>Let's talk.</h2>
     <p>Open to co-op opportunities for Fall 2026. Graduating December 2027.</p>
     <div class="contact-links">
-      <div style="font-family:var(--fm);font-size:0.9rem;color:var(--ink2);border-top:1px solid var(--border);border-bottom:none;padding:1.2rem 0;letter-spacing:0.04em;max-width:560px;">rizvi-zain@hotmail.com</div>
+      <div class="contact-email">rizvi-zain@hotmail.com</div>
       <a href="https://linkedin.com/in/zain-rizvi-69b175215/" target="_blank">linkedin.com/in/zain-rizvi <span>&#8599;</span></a>
       <a href="https://github.com/ZainRizvi9" target="_blank">github.com/ZainRizvi9 <span>&#8599;</span></a>
     </div>
@@ -348,7 +364,7 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
   <p>Built by hand.</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
 let mx = 0, my = 0, rx = 0, ry = 0;
@@ -396,3 +412,4 @@ if ('ontouchstart' in window) {
 }
 </script>
 </body>
+</html>
