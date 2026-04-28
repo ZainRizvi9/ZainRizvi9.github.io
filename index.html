@@ -167,7 +167,7 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
     <div class="about-text reveal">
       <h2>Hey, I'm Zain.</h2>
       <p>Third-year Computer Science Co-op student at the University of Ottawa, graduating December 2027. I like building things that are technically interesting and actually useful, whether that's ML pipelines, security tools, or full-stack web apps.</p>
-      <p>I did two terms at York Region as an IT Service Desk Analyst. Currently building projects in data engineering, machine learning, and cloud security, targeting downtown Toronto for Fall 2026.</p>
+      <p>I did two terms at York Region as an IT Analyst. Currently building projects in data engineering, machine learning, and cloud security, targeting downtown Toronto for Fall 2026.</p>
       <p>I'm interested in software engineering, data, and security roles where technical depth has real-world impact.</p>
     </div>
     <div class="about-stats reveal" style="transition-delay:0.15s;">
@@ -199,11 +199,11 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
         <span class="exp-date">May 2024 – Aug 2024<br/>May 2025 – Aug 2025</span>
       </div>
       <div class="exp-content">
-        <h3>IT Service Desk Analyst</h3>
+        <h3>IT Analyst</h3>
         <p class="exp-company">York Region · Newmarket, ON</p>
         <ul>
           <li>Triaged and investigated 500+ monthly IT incidents across 15+ service categories, identifying recurring issue patterns and coordinating with technicians to resolve root causes</li>
-          <li>Built dashboards tracking incident volume, priority, and resolution time, surfacing trends used to inform infrastructure and staffing decisions across a team of 10+ technicians</li>
+          <li>Built incident tracking dashboards in ServiceNow, Excel, and Power BI monitoring volume, priority, and resolution time across a team of 10+ technicians, with findings informing infrastructure and staffing decisions</li>
           <li>Standardized ticket taxonomy and documentation practices to improve data consistency and enable accurate security and operational reporting for management</li>
           <li>Coordinated with vendors and internal teams to manage software, hardware, and access-related requests, maintaining accurate records for audit and compliance purposes</li>
         </ul>
@@ -217,8 +217,9 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
         <h3>Director of Academic Affairs</h3>
         <p class="exp-company">Computer Science Student Association · University of Ottawa</p>
         <ul>
-          <li>Organized professional development events including a Nokia office tour for 50+ CS students, handling logistics and outreach end to end</li>
-          <li>Served as the primary liaison between the student body and department administration on academic policy</li>
+          <li>Organized professional development events including a Nokia office tour for 90+ CS students, handling logistics and outreach end to end</li>
+          <li>Coordinated and ran workshops on web development and machine learning reaching 50+ students per session</li>
+          <li>Represented 900+ undergraduate CS students as the primary liaison to department administration on academic policy and course scheduling</li>
         </ul>
       </div>
     </div>
@@ -261,6 +262,20 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
 
     <div class="project-card reveal" style="transition-delay:0.1s;">
       <div class="project-num">03</div>
+      <h3>Court Vision — NBA Analytics</h3>
+      <p class="project-stack">Python · PostgreSQL · nba_api · Streamlit · Plotly · Tableau · Supabase</p>
+      <p class="project-desc">End-to-end NBA analytics pipeline ingesting 1,400+ player-season records across 6 seasons into a PostgreSQL star schema on Supabase. Computes a composite Player Value Score across scoring, defense, playmaking, rebounding, and clutch performance. Deployed as an interactive Streamlit dashboard with a live-connected Tableau BI layer for salary efficiency and team ranking analysis.</p>
+      <div class="project-tags">
+        <span>PostgreSQL</span><span>Streamlit</span><span>Tableau</span><span>Data Engineering</span>
+      </div>
+      <div class="project-links">
+        <a href="https://nbaanalytics9.streamlit.app" target="_blank">Live</a>
+        <a href="https://github.com/ZainRizvi9/NBAAnalytics" target="_blank">GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal" style="transition-delay:0.15s;">
+      <div class="project-num">04</div>
       <h3>GitHub Secret Scanner</h3>
       <p class="project-stack">Python · Shannon Entropy · Regex · PyGithub · Streamlit · Plotly</p>
       <p class="project-desc">Two-layer credential detection engine scanning public repos for exposed secrets. Pattern matching across 14 credential types combined with Shannon entropy analysis to catch secrets patterns miss. Each finding includes real-world impact, attack vector, and remediation steps modeled after GitGuardian and TruffleHog.</p>
@@ -274,8 +289,8 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
       </div>
     </div>
 
-    <div class="project-card reveal" style="transition-delay:0.15s;">
-      <div class="project-num">04</div>
+    <div class="project-card reveal" style="transition-delay:0.2s;">
+      <div class="project-num">05</div>
       <h3>FilmGrid</h3>
       <p class="project-stack">React · Node.js · Express · MongoDB · SerpApi · Cheerio · Vercel · Railway</p>
       <p class="project-desc">Full-stack movie theatre finder surfacing real-time showtimes for 15+ Toronto theatres. Custom Cheerio scrapers for indie theatres unavailable on Fandango. Decoupled deployment across Vercel and Railway with 2-hour TTL caching and TMDB integration for movie metadata.</p>
@@ -289,8 +304,8 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
       </div>
     </div>
 
-    <div class="project-card reveal" style="transition-delay:0.2s;">
-      <div class="project-num">05</div>
+    <div class="project-card reveal" style="transition-delay:0.25s;">
+      <div class="project-num">06</div>
       <h3>Cosmora</h3>
       <p class="project-stack">React · Three.js · React Three Fiber · NASA API · Vercel</p>
       <p class="project-desc">3D interactive solar system explorer with real-time free-fly navigation and NASA texture-mapped planets. Uses Kepler's orbital equations for accurate planetary positioning, live NASA asteroid data, ISS tracking, and a from-scratch KNN threat classifier in vanilla JS.</p>
@@ -301,20 +316,6 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
         <a href="https://cosmora-mu.vercel.app" target="_blank">Live</a>
         <a href="https://youtu.be/gGv5bNrwf8Y" target="_blank">Demo</a>
         <a href="https://github.com/ZainRizvi9/cosmora" target="_blank">GitHub</a>
-      </div>
-    </div>
-
-    <div class="project-card reveal" style="transition-delay:0.25s;">
-      <div class="project-num">06</div>
-      <h3>FilmFlicker</h3>
-      <p class="project-stack">Python · Streamlit · Pandas · Plotly · TMDB API</p>
-      <p class="project-desc">Movie recommendation engine using cosine similarity on one-hot encoded genre vectors, a KNN vibe classifier across 15 curated film categories, and interactive visualizations including a film similarity heatmap.</p>
-      <div class="project-tags">
-        <span>Recommendation System</span><span>KNN</span><span>Data Viz</span>
-      </div>
-      <div class="project-links">
-        <a href="https://filmflicker.streamlit.app" target="_blank">Live</a>
-        <a href="https://youtu.be/OVAbEVROXw" target="_blank">Demo</a>
       </div>
     </div>
 
@@ -341,7 +342,7 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
     </div>
     <div class="skill-group">
       <h4>Tools</h4>
-      <p>Git · AWS · Docker · PostgreSQL · Nginx · VS Code · Agile · SDLC</p>
+      <p>Git · AWS · Docker · PostgreSQL · Power BI · Tableau · Nginx · VS Code · Agile · SDLC</p>
     </div>
   </div>
 </section>
