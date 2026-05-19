@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CacheLayer — System Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0a0a0f;--ink-2:#3a3a4a;--ink-3:#6a6a7a;--ink-4:#a0a0b0;
+  --surface:#f9f9fc;--card:#fff;--line:rgba(0,0,0,0.07);--line-2:rgba(0,0,0,0.12);
+  --blue:#1a56ff;--blue-dim:rgba(26,86,255,0.07);--blue-border:rgba(26,86,255,0.18);
+  --green:#00a86b;--green-dim:rgba(0,168,107,0.08);
+  --amber:#c97000;--amber-dim:rgba(201,112,0,0.08);
+  --red:#c0392b;--red-dim:rgba(192,57,43,0.08);
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'Geist',-apple-system,sans-serif;
+  --mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--surface);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+/* Nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(249,249,252,0.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:0 48px;height:54px;display:flex;align-items:center;justify-content:space-between}
+.nav-title{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:10px}
+.nav-badge{font-family:var(--mono);font-size:10px;color:var(--blue);background:var(--blue-dim);border:1px solid var(--blue-border);border-radius:3px;padding:2px 7px;letter-spacing:0.06em}
+.nav-links{display:flex;gap:24px}
+.nav-links a{font-size:13px;color:var(--ink-3);text-decoration:none;transition:color 0.14s}
+.nav-links a:hover{color:var(--ink)}
+
+/* Layout */
+.page{max-width:860px;margin:0 auto;padding:64px 28px 96px}
+
+/* Hero */
+.hero{margin-bottom:64px;padding-bottom:48px;border-bottom:1px solid var(--line)}
+.hero-tag{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--ink-4);margin-bottom:16px}
+h1{font-family:var(--serif);font-size:48px;font-weight:400;letter-spacing:-1.5px;line-height:1.06;color:var(--ink);margin-bottom:14px}
+h1 em{font-style:italic;color:var(--blue)}
+.hero-sub{font-size:16px;color:var(--ink-2);max-width:560px;line-height:1.75;margin-bottom:28px}
+.meta-row{display:flex;gap:24px;flex-wrap:wrap}
+.meta-item{display:flex;flex-direction:column;gap:2px}
+.meta-label{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--ink-4)}
+.meta-val{font-size:13px;color:var(--ink-2);font-weight:500}
+
+/* Section */
+.section{margin-bottom:56px}
+h2{font-family:var(--serif);font-size:30px;font-weight:400;letter-spacing:-0.8px;color:var(--ink);margin-bottom:6px}
+h2 em{font-style:italic;color:var(--blue)}
+.section-intro{font-size:15px;color:var(--ink-3);margin-bottom:28px;max-width:620px}
+
+h3{font-size:14px;font-weight:600;color:var(--ink);letter-spacing:-0.2px;margin-bottom:8px;margin-top:24px}
+
+/* Architecture diagram */
+.arch-diagram{background:var(--ink);border-radius:14px;padding:36px;margin-bottom:28px;font-family:var(--mono);font-size:12px;line-height:2;overflow-x:auto}
+.arch-comment{color:rgba(255,255,255,0.25)}
+.arch-box{color:#86efac}
+.arch-arrow{color:#60a5fa}
+.arch-label{color:rgba(255,255,255,0.6)}
+.arch-hit{color:#fbbf24}
+.arch-miss{color:#f87171}
+
+/* Cards */
+.card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.card-label{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--ink-4);margin-bottom:8px}
+.card-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px;letter-spacing:-0.2px}
+.card-desc{font-size:13px;color:var(--ink-3);line-height:1.6}
+
+/* Decision table */
+.decision-table{width:100%;border-collapse:collapse;margin-bottom:24px;background:var(--card);border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.decision-table th{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--ink-3);font-weight:500;padding:12px 18px;text-align:left;border-bottom:1px solid var(--line);background:var(--surface)}
+.decision-table td{font-size:13px;padding:12px 18px;color:var(--ink-2);border-bottom:1px solid var(--line);vertical-align:top}
+.decision-table tr:last-child td{border-bottom:none}
+.decision-table td:first-child{font-weight:600;color:var(--ink);white-space:nowrap}
+.chosen{background:var(--blue-dim)}
+.chosen td{color:var(--blue)}
+.chosen td:first-child{color:var(--blue)}
+
+/* Benchmark table */
+.bench-table{width:100%;border-collapse:collapse;margin-bottom:24px;background:var(--card);border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.bench-table th{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--ink-3);font-weight:500;padding:12px 18px;text-align:left;border-bottom:1px solid var(--line);background:var(--surface)}
+.bench-table td{font-family:var(--mono);font-size:12px;padding:12px 18px;color:var(--ink-2);border-bottom:1px solid var(--line)}
+.bench-table tr:last-child td{border-bottom:none}
+.bench-table tr.optimal td{background:var(--blue-dim);color:var(--blue);font-weight:500}
+.bar-wrap{display:flex;align-items:center;gap:8px}
+.bar-track{flex:1;height:3px;background:var(--line-2);border-radius:2px;overflow:hidden;min-width:60px}
+.bar-fill{height:100%;border-radius:2px;background:var(--blue)}
+.bench-table tr.optimal .bar-fill{background:var(--blue)}
+
+/* Metric cards */
+.metric-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px}
+.metric{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.metric-val{font-family:var(--mono);font-size:22px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.metric-val.blue{color:var(--blue)}
+.metric-val.green{color:var(--green)}
+.metric-label{font-size:11px;color:var(--ink-4);letter-spacing:0.04em}
+
+/* Code block */
+.code{background:var(--ink);border-radius:10px;overflow:hidden;margin-bottom:20px}
+.code-bar{display:flex;align-items:center;gap:7px;padding:11px 16px;border-bottom:1px solid rgba(255,255,255,0.07)}
+.dot{width:9px;height:9px;border-radius:50%}
+.dot-r{background:#ff5f57}.dot-y{background:#ffbd2e}.dot-g{background:#28ca41}
+.code-file{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.3);margin-left:auto;letter-spacing:0.06em}
+.code-body{padding:20px 24px;font-family:var(--mono);font-size:12.5px;line-height:1.9;color:rgba(255,255,255,0.5)}
+.ck{color:#a78bfa}.cs{color:#86efac}.cc{color:rgba(255,255,255,0.2)}.cu{color:#60a5fa}
+
+/* Tradeoff pills */
+.pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.pill{font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:20px;letter-spacing:0.04em}
+.pill-green{background:var(--green-dim);color:var(--green);border:1px solid rgba(0,168,107,0.2)}
+.pill-red{background:var(--red-dim);color:var(--red);border:1px solid rgba(192,57,43,0.2)}
+.pill-amber{background:var(--amber-dim);color:var(--amber);border:1px solid rgba(201,112,0,0.2)}
+.pill-blue{background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue-border)}
+
+/* Flow steps */
+.flow{display:flex;flex-direction:column;gap:0;margin-bottom:24px}
+.flow-step{display:flex;gap:16px;align-items:flex-start}
+.flow-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.flow-num{width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;font-family:var(--mono);font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.flow-line{width:1px;flex:1;background:var(--line-2);margin:4px 0;min-height:20px}
+.flow-step:last-child .flow-line{display:none}
+.flow-content{padding-bottom:24px}
+.flow-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:4px;margin-top:4px}
+.flow-desc{font-size:13px;color:var(--ink-3);line-height:1.6}
+
+/* Scale section */
+.scale-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:24px}
+.scale-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px}
+.scale-tier{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--ink-4);margin-bottom:8px}
+.scale-val{font-size:18px;font-weight:600;color:var(--ink);margin-bottom:4px;letter-spacing:-0.3px}
+.scale-desc{font-size:12px;color:var(--ink-3);line-height:1.5}
+
+/* Future work */
+.future-list{display:flex;flex-direction:column;gap:10px}
+.future-item{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.future-icon{width:32px;height:32px;border-radius:8px;background:var(--blue-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+.future-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.future-desc{font-size:12px;color:var(--ink-3);line-height:1.5}
+
+/* TOC */
+.toc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin-bottom:48px}
+.toc-title{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--ink-4);margin-bottom:12px}
+.toc-links{display:flex;flex-direction:column;gap:6px}
+.toc-links a{font-size:13px;color:var(--ink-3);text-decoration:none;display:flex;align-items:center;gap:8px;transition:color 0.13s}
+.toc-links a:hover{color:var(--blue)}
+.toc-num{font-family:var(--mono);font-size:11px;color:var(--ink-4);width:20px}
+
+/* Divider */
+hr{border:none;border-top:1px solid var(--line);margin:48px 0}
+
+/* Footer */
+footer{text-align:center;padding:32px;font-family:var(--mono);font-size:11px;color:var(--ink-4);border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-title">
+    CacheLayer
+    <span class="nav-badge">SYSTEM DESIGN</span>
+  </div>
+  <div class="nav-links">
+    <a href="#architecture">Architecture</a>
+    <a href="#algorithm">Algorithm</a>
+    <a href="#decisions">Decisions</a>
+    <a href="#benchmark">Benchmark</a>
+    <a href="#scale">Scale</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-tag">SYSTEM DESIGN DOCUMENT</div>
+    <h1>CacheLayer:<br/><em>Semantic LLM Caching</em></h1>
+    <p class="hero-sub">A multi-tenant proxy that intercepts semantically duplicate LLM API queries using sentence embeddings and cosine similarity, reducing token spend without any application code changes.</p>
+    <div class="meta-row">
+      <div class="meta-item"><div class="meta-label">AUTHOR</div><div class="meta-val">Zain Rizvi</div></div>
+      <div class="meta-item"><div class="meta-label">LIVE URL</div><div class="meta-val">cachelayer.up.railway.app</div></div>
+      <div class="meta-item"><div class="meta-label">STACK</div><div class="meta-val">Python, FastAPI, SQLite, Docker</div></div>
+      <div class="meta-item"><div class="meta-label">PAPER</div><div class="meta-val">arXiv (in submission)</div></div>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-title">CONTENTS</div>
+    <div class="toc-links">
+      <a href="#problem"><span class="toc-num">01</span>Problem Statement</a>
+      <a href="#architecture"><span class="toc-num">02</span>System Architecture</a>
+      <a href="#algorithm"><span class="toc-num">03</span>Core Algorithm</a>
+      <a href="#decisions"><span class="toc-num">04</span>Design Decisions</a>
+      <a href="#benchmark"><span class="toc-num">05</span>Benchmark Results</a>
+      <a href="#scale"><span class="toc-num">06</span>Scale Considerations</a>
+      <a href="#future"><span class="toc-num">07</span>Future Work</a>
+    </div>
+  </div>
+
+  <!-- Problem -->
+  <div class="section" id="problem">
+    <h2>01. <em>Problem</em> Statement</h2>
+    <p class="section-intro">LLM APIs charge per token. Users frequently submit semantically identical queries with different surface forms, resulting in redundant API calls and unnecessary spend.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label">THE PROBLEM</div>
+        <div class="card-title">Exact match caching fails</div>
+        <div class="card-desc">"What is the Salesforce implementation timeline?" and "How long does a Salesforce deployment take?" are semantically identical but share no common string. Standard caching misses these.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">THE COST</div>
+        <div class="card-title">Token spend scales with users, not questions</div>
+        <div class="card-desc">A 10-person team asking the same questions differently pays 10x what they should. At 10,000 queries/day with 70% paraphrase rate, that's ~$1,000/year in avoidable spend per application.</div>
+      </div>
+    </div>
+
+    <h3>Why not just use a standard cache?</h3>
+    <p style="font-size:13px;color:var(--ink-3);line-height:1.7">Redis and Memcached do exact string matching on the cache key. Two queries that mean the same thing but are worded differently produce different hash keys and both result in API calls. The only way to catch paraphrases is to compare meaning, not strings — which requires embedding the query into a vector space where semantic similarity can be measured geometrically.</p>
+  </div>
+
+  <hr/>
+
+  <!-- Architecture -->
+  <div class="section" id="architecture">
+    <h2>02. System <em>Architecture</em></h2>
+    <p class="section-intro">CacheLayer sits between any client application and any LLM provider. It implements the OpenAI API specification so existing SDKs work without modification.</p>
+
+    <div class="arch-diagram">
+<span class="arch-label">┌─────────────────────────────────────────────────────┐</span><br/>
+<span class="arch-label">│                  CLIENT APPLICATION                  │</span><br/>
+<span class="arch-label">│         OpenAI SDK  ·  Anthropic SDK  ·  httpx        │</span><br/>
+<span class="arch-label">└──────────────────────┬──────────────────────────────┘</span><br/>
+<span class="arch-label">                       │  POST /v1/chat/completions</span><br/>
+<span class="arch-label">                       │  Authorization: Bearer cl_...</span><br/>
+<span class="arch-label">                       ▼</span><br/>
+<span class="arch-box">┌─────────────────────────────────────────────────────┐</span><br/>
+<span class="arch-box">│                    CACHELAYER PROXY                  │</span><br/>
+<span class="arch-box">│                                                     │</span><br/>
+<span class="arch-box">│  1. Auth → validate cl_ API key → get user_id       │</span><br/>
+<span class="arch-box">│  2. Embed → query → 384-dim vector                  │</span><br/>
+<span class="arch-box">│  3. Search → cosine similarity vs cached entries    │</span><br/>
+<span class="arch-box">│  4. Route → cache hit OR upstream provider          │</span><br/>
+<span class="arch-box">└──────────┬──────────────────────────┬───────────────┘</span><br/>
+<span class="arch-label">           │</span>                          <span class="arch-label">│</span><br/>
+<span class="arch-hit">     CACHE HIT</span><span class="arch-label">                    </span><span class="arch-miss">CACHE MISS</span><br/>
+<span class="arch-hit">     ↓ 8ms · $0.00</span><span class="arch-label">                </span><span class="arch-miss">↓ forward to provider</span><br/>
+<span class="arch-label">           │</span>                          <span class="arch-label">│</span><br/>
+<span class="arch-label">    ┌──────▼──────┐          ┌────────▼────────┐</span><br/>
+<span class="arch-label">    │  SQLite DB   │          │  OpenAI/Anthropic│</span><br/>
+<span class="arch-label">    │  embeddings  │          │  ~1,800ms · $$$  │</span><br/>
+<span class="arch-label">    │  responses   │          └─────────────────┘</span><br/>
+<span class="arch-label">    │  user stats  │</span><br/>
+<span class="arch-label">    └─────────────┘</span>
+    </div>
+
+    <div class="flow" id="flow">
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-title">Authentication</div>
+          <div class="flow-desc">Every request must carry a CacheLayer API key (prefix cl_) in the Authorization header. The key is looked up in the users table to retrieve the user_id. All cache operations are scoped to that user_id, ensuring complete isolation between tenants.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-title">Query Extraction and Embedding</div>
+          <div class="flow-desc">The last user message is extracted from the messages array as the cache key. It is embedded using all-MiniLM-L6-v2, producing a 384-dimensional L2-normalized vector. Normalization enables dot product to serve as cosine similarity, avoiding the division by magnitude.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-title">Similarity Search</div>
+          <div class="flow-desc">The query vector is compared against all cached entries for that user via linear scan. Each entry's stored embedding is deserialized from JSON and scored with a dot product. If any score meets or exceeds the threshold (default 0.80), the cached response is returned immediately.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-num">4</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-title">Provider Routing on Cache Miss</div>
+          <div class="flow-desc">On a miss, the model name is checked for "claude" to determine whether to route to Anthropic's /v1/messages endpoint or OpenAI's /v1/chat/completions. Headers are translated appropriately. The upstream API key is passed via X-Upstream-Key, keeping it separate from the CacheLayer key.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-num">5</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-title">Cache Write and Response</div>
+          <div class="flow-desc">The response is stored with the query text, embedding, timestamp, and user_id. Stats are updated atomically. The response is returned in standard OpenAI format regardless of provider, with an additional "cached": true field for observability. Token counts are zeroed on cache hits.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr/>
+
+  <!-- Algorithm -->
+  <div class="section" id="algorithm">
+    <h2>03. Core <em>Algorithm</em></h2>
+    <p class="section-intro">The semantic matching algorithm has three components: embedding, similarity, and threshold selection.</p>
+
+    <h3>Sentence Embeddings</h3>
+    <p style="font-size:13px;color:var(--ink-3);line-height:1.7;margin-bottom:16px">A sentence embedding maps text to a fixed-length vector where geometric proximity corresponds to semantic similarity. all-MiniLM-L6-v2 was chosen for three reasons: it produces strong semantic similarity scores on standard benchmarks, it runs inference in under 10ms on CPU without a GPU, and its 22M parameter count means it fits in memory alongside the FastAPI server without significant overhead.</p>
+
+    <h3>Cosine Similarity</h3>
+    <div class="code">
+      <div class="code-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="code-file">src/embedder.py</div></div>
+      <div class="code-body">
+<span class="cc"># Full cosine similarity formula</span><br/>
+sim(a, b) = (a · b) / (|a| × |b|)<br/>
+<br/>
+<span class="cc"># After L2 normalization: |a| = |b| = 1, so:</span><br/>
+sim(a, b) = a · b &nbsp;&nbsp;<span class="cc"># just a dot product</span><br/>
+<br/>
+<span class="ck">def</span> <span class="cs">embed</span>(text: str) -> np.ndarray:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="ck">return</span> model.encode(text, <span class="cu">normalize_embeddings</span>=True)<br/>
+<br/>
+<span class="ck">def</span> <span class="cs">similarity</span>(a: np.ndarray, b: np.ndarray) -> float:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="ck">return</span> float(np.dot(a, b))
+      </div>
+    </div>
+
+    <h3>Why cosine similarity and not Euclidean distance?</h3>
+    <p style="font-size:13px;color:var(--ink-3);line-height:1.7;margin-bottom:20px">Euclidean distance measures the absolute distance between two points in vector space. Cosine similarity measures the angle between them, ignoring magnitude. For sentence embeddings, two queries can have very different magnitudes but nearly identical meaning — cosine similarity handles this correctly. After L2 normalization, cosine similarity reduces to a dot product, which is faster to compute and numerically stable.</p>
+
+    <h3>Threshold Selection</h3>
+    <p style="font-size:13px;color:var(--ink-3);line-height:1.7;margin-bottom:14px">The threshold τ is the central design parameter. It controls the precision-recall tradeoff:</p>
+    <div class="pill-row">
+      <span class="pill pill-red">τ too low → false positives (wrong answers)</span>
+      <span class="pill pill-green">τ = 0.80 → optimal balance</span>
+      <span class="pill pill-amber">τ too high → false negatives (missed hits)</span>
+    </div>
+    <p style="font-size:13px;color:var(--ink-3);line-height:1.7">Empirical testing across 15 paraphrased query pairs showed that hit rate collapses sharply between 0.80 and 0.85, suggesting that paraphrased queries using all-MiniLM-L6-v2 cluster in the 0.80-0.84 cosine similarity range. Below 0.80, topically related but semantically distinct queries begin to score above threshold, risking incorrect cache hits.</p>
+  </div>
+
+  <hr/>
+
+  <!-- Design Decisions -->
+  <div class="section" id="decisions">
+    <h2>04. Design <em>Decisions</em></h2>
+    <p class="section-intro">Every major technical choice involved a tradeoff. Here is the reasoning behind each one.</p>
+
+    <h3>Storage: SQLite vs PostgreSQL vs Redis</h3>
+    <table class="decision-table">
+      <thead><tr><th>OPTION</th><th>PROS</th><th>CONS</th><th>CHOSEN?</th></tr></thead>
+      <tbody>
+        <tr class="chosen"><td>SQLite</td><td>Zero ops overhead, persistent across restarts, single file, fast for small caches</td><td>No concurrent writes, linear scan at scale</td><td>Yes — optimal for current scale</td></tr>
+        <tr><td>PostgreSQL + pgvector</td><td>ANN search, concurrent access, production-grade</td><td>Requires managed DB, adds latency, overkill at small scale</td><td>Next step for production</td></tr>
+        <tr><td>Redis</td><td>Fast in-memory lookups</td><td>No vector similarity, data lost on restart, no native embedding support</td><td>No</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Embedding Model: all-MiniLM-L6-v2 vs alternatives</h3>
+    <table class="decision-table">
+      <thead><tr><th>MODEL</th><th>DIMENSIONS</th><th>SPEED</th><th>QUALITY</th><th>CHOSEN?</th></tr></thead>
+      <tbody>
+        <tr class="chosen"><td>all-MiniLM-L6-v2</td><td>384</td><td>~8ms CPU</td><td>Strong on STS benchmarks</td><td>Yes</td></tr>
+        <tr><td>all-mpnet-base-v2</td><td>768</td><td>~25ms CPU</td><td>Higher quality</td><td>Too slow for real-time</td></tr>
+        <tr><td>OpenAI text-embedding-3</td><td>1536</td><td>~200ms + API cost</td><td>Best quality</td><td>Adds latency and cost</td></tr>
+      </tbody>
+    </table>
+
+    <h3>API Design: Proxy vs Library</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label">PROXY APPROACH (chosen)</div>
+        <div class="card-title">Network-level interception</div>
+        <div class="card-desc">Zero application code changes. Change one URL and every existing SDK call is cached transparently. Works across languages and frameworks. Can be deployed as shared infrastructure.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">LIBRARY APPROACH (rejected)</div>
+        <div class="card-title">Import and wrap</div>
+        <div class="card-desc">Requires code changes in every application. Language-specific. Cannot be shared across teams. GPTCache takes this approach — we explicitly chose not to.</div>
+      </div>
+    </div>
+
+    <h3>Multi-tenancy: Per-user cache isolation</h3>
+    <p style="font-size:13px;color:var(--ink-3);line-height:1.7">All cache entries are tagged with a user_id foreign key. Every lookup filters by user_id before computing similarity scores. This ensures that company A's cached responses are never returned to company B, which is a hard requirement for any production deployment handling sensitive data. API keys use the cl_ prefix and are generated with Python's secrets.token_urlsafe(24) for cryptographic randomness.</p>
+  </div>
+
+  <hr/>
+
+  <!-- Benchmark -->
+  <div class="section" id="benchmark">
+    <h2>05. <em>Benchmark</em> Results</h2>
+    <p class="section-intro">Evaluated across 15 paraphrased query pairs spanning enterprise software, finance, and engineering domains.</p>
+
+    <div class="metric-row">
+      <div class="metric"><div class="metric-val blue">93.3%</div><div class="metric-label">HIT RATE AT τ=0.80</div></div>
+      <div class="metric"><div class="metric-val green">216×</div><div class="metric-label">FASTER THAN LIVE API</div></div>
+      <div class="metric"><div class="metric-val">8.3ms</div><div class="metric-label">AVG CACHE HIT LATENCY</div></div>
+      <div class="metric"><div class="metric-val">$0.00</div><div class="metric-label">TOKENS ON CACHE HIT</div></div>
+    </div>
+
+    <h3>Threshold vs Hit Rate Analysis</h3>
+    <table class="bench-table">
+      <thead><tr><th>THRESHOLD</th><th>HIT RATE</th><th></th><th>HITS / 15</th><th>TOKENS SAVED</th><th>COST SAVED</th></tr></thead>
+      <tbody>
+        <tr><td>0.70</td><td>100.0%</td><td><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div></td><td>15</td><td>900</td><td>$0.0045</td></tr>
+        <tr><td>0.75</td><td>93.3%</td><td><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:93.3%"></div></div></div></td><td>14</td><td>840</td><td>$0.0042</td></tr>
+        <tr class="optimal"><td>0.80 ← optimal</td><td>93.3%</td><td><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:93.3%"></div></div></div></td><td>14</td><td>840</td><td>$0.0042</td></tr>
+        <tr><td>0.85</td><td>66.7%</td><td><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:66.7%"></div></div></div></td><td>10</td><td>600</td><td>$0.0030</td></tr>
+        <tr><td>0.90</td><td>33.3%</td><td><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:33.3%"></div></div></div></td><td>5</td><td>300</td><td>$0.0015</td></tr>
+        <tr><td>0.95</td><td>0.0%</td><td><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div></div></td><td>0</td><td>0</td><td>$0.0000</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Key Finding</h3>
+    <p style="font-size:13px;color:var(--ink-3);line-height:1.7">Hit rate collapses sharply between τ=0.80 and τ=0.85 — a drop of 26.6 percentage points over a 0.05 threshold increase. This suggests paraphrased queries using all-MiniLM-L6-v2 cluster tightly in the 0.80–0.84 cosine similarity range. Above this band, only near-identical phrasings remain, and the cache becomes too strict to be useful. Below this band, topically similar but semantically distinct queries begin to score above threshold, risking false positives.</p>
+  </div>
+
+  <hr/>
+
+  <!-- Scale -->
+  <div class="section" id="scale">
+    <h2>06. Scale <em>Considerations</em></h2>
+    <p class="section-intro">The current implementation is optimized for single-application deployments. Here is how it extends to larger scale.</p>
+
+    <div class="scale-grid">
+      <div class="scale-card">
+        <div class="scale-tier">CURRENT · UP TO ~5K ENTRIES</div>
+        <div class="scale-val">Linear Scan</div>
+        <div class="scale-desc">O(n) similarity search over SQLite. Acceptable latency at small scale. Each entry is deserialized and dot-producted in sequence.</div>
+      </div>
+      <div class="scale-card">
+        <div class="scale-tier">NEXT · 5K–500K ENTRIES</div>
+        <div class="scale-val">FAISS Index</div>
+        <div class="scale-desc">Approximate nearest neighbor search using Facebook AI Similarity Search. Sub-linear lookup time. Drop-in replacement for the linear scan loop.</div>
+      </div>
+      <div class="scale-card">
+        <div class="scale-tier">PRODUCTION · 500K+ ENTRIES</div>
+        <div class="scale-val">pgvector + RDS</div>
+        <div class="scale-desc">PostgreSQL with the pgvector extension for native vector similarity. Concurrent writes, horizontal read scaling, managed backups.</div>
+      </div>
+    </div>
+
+    <h3>Why the current linear scan is acceptable</h3>
+    <p style="font-size:13px;color:var(--ink-3);line-height:1.7;margin-bottom:16px">At 1,000 cached entries, a full linear scan completes in under 2ms on a single core. The dominant latency is the embedding inference at ~8ms, not the search. Linear scan only becomes a bottleneck above ~10,000 entries, which represents months of usage for most single-tenant deployments. FAISS is the clear next step but is not necessary at current scale.</p>
+
+    <h3>Bottlenecks at scale</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label">EMBEDDING LATENCY</div>
+        <div class="card-title">~8ms per query, synchronous</div>
+        <div class="card-desc">Currently blocks the request thread. At high concurrency, this becomes the primary bottleneck. Fix: asyncio.run_in_executor to move embedding to a thread pool.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">SQLite CONCURRENCY</div>
+        <div class="card-title">Single writer lock</div>
+        <div class="card-desc">SQLite allows only one write at a time. Under high concurrent write load (many cache misses simultaneously), writes queue up. Fix: WAL mode or PostgreSQL migration.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr/>
+
+  <!-- Future -->
+  <div class="section" id="future">
+    <h2>07. <em>Future</em> Work</h2>
+    <p class="section-intro">Prioritized by engineering impact and commercial value.</p>
+
+    <div class="future-list">
+      <div class="future-item">
+        <div class="future-icon">⚡</div>
+        <div>
+          <div class="future-title">FAISS approximate nearest neighbor index</div>
+          <div class="future-desc">Replace the O(n) linear scan with a FAISS IVF index for sub-linear lookup at scale. Maintains the same cosine similarity semantics with dramatically better asymptotic performance above 10,000 cached entries.</div>
+        </div>
+      </div>
+      <div class="future-item">
+        <div class="future-icon">📊</div>
+        <div>
+          <div class="future-title">Time-series analytics API</div>
+          <div class="future-desc">Track hit rate, latency, and cost savings at hourly and daily granularity. Expose as a /analytics endpoint so teams can monitor ROI over time rather than just running totals.</div>
+        </div>
+      </div>
+      <div class="future-item">
+        <div class="future-icon">🔧</div>
+        <div>
+          <div class="future-title">Domain-specific threshold profiles</div>
+          <div class="future-desc">Let users configure different thresholds per use case. Customer support queries can use 0.75, code generation queries 0.92. Stored per user in the database with a /config endpoint.</div>
+        </div>
+      </div>
+      <div class="future-item">
+        <div class="future-icon">🛡️</div>
+        <div>
+          <div class="future-title">Semantic coherence validation</div>
+          <div class="future-desc">Score the semantic similarity between a query and its proposed cached response before returning it. Reject cache entries where the query-response similarity falls below a coherence threshold, preventing poisoned cache responses.</div>
+        </div>
+      </div>
+      <div class="future-item">
+        <div class="future-icon">🔔</div>
+        <div>
+          <div class="future-title">Cache miss webhooks</div>
+          <div class="future-desc">Let users register a webhook URL that is called on every cache miss with the query and response. Enables downstream systems to proactively seed the cache with expected future queries before traffic arrives.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  CacheLayer · Zain Rizvi · github.com/ZainRizvi9/CacheLayer · cachelayer.up.railway.app
+</footer>
+
+</body>
+</html>
