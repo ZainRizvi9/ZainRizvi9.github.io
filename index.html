@@ -9,19 +9,9 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --bg:#0d0c0b;
-  --bg2:#141310;
-  --bg3:#1c1a17;
-  --ink:#f0ece4;
-  --ink2:#a09a90;
-  --ink3:#5a5550;
-  --amber:#2d6a4f;
-  --amber2:#40916c;
-  --border:#2a2724;
-  --card:#181614;
-  --fd:'Playfair Display',serif;
-  --fm:'IBM Plex Mono',monospace;
-  --fs:'IBM Plex Sans',sans-serif;
+  --bg:#0d0c0b;--bg2:#141310;--bg3:#1c1a17;--ink:#f0ece4;--ink2:#a09a90;--ink3:#5a5550;
+  --amber:#2d6a4f;--amber2:#40916c;--border:#2a2724;--card:#181614;
+  --fd:'Playfair Display',serif;--fm:'IBM Plex Mono',monospace;--fs:'IBM Plex Sans',sans-serif;
 }
 html{scroll-behavior:smooth;}
 body{font-family:var(--fs);background:var(--bg);color:var(--ink);font-size:16px;line-height:1.7;overflow-x:hidden;cursor:none;}
@@ -166,27 +156,15 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
   <div class="about-grid">
     <div class="about-text reveal">
       <h2>Hey, I'm Zain.</h2>
-      <p>Third-year Computer Science Co-op student at the University of Ottawa, graduating December 2027. I like building things that are technically interesting and actually useful, whether that's ML pipelines, security tools, or full-stack web apps.</p>
-      <p>I did two terms at York Region as an IT Analyst. Currently building projects in data engineering, machine learning, and cloud security, targeting downtown Toronto for Fall 2026.</p>
-      <p>I'm interested in software engineering, data, and security roles where technical depth has real-world impact.</p>
+      <p>Third-year Computer Science Co-op student at the University of Ottawa, graduating December 2027. I like building things that are technically interesting and actually useful, whether that's ML pipelines, LLM infrastructure, or full-stack web apps.</p>
+      <p>I did two terms at York Region as an IT Analyst. Currently building projects in data engineering, machine learning, and LLM infrastructure, targeting downtown Toronto for Fall 2026.</p>
+      <p>I'm interested in software engineering, solutions engineering, and data roles where technical depth has real-world impact.</p>
     </div>
     <div class="about-stats reveal" style="transition-delay:0.15s;">
-      <div class="stat">
-        <div class="stat-num">3.5</div>
-        <div class="stat-label">GPA</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">2</div>
-        <div class="stat-label">Co-op terms completed</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">6</div>
-        <div class="stat-label">Deployed projects</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">Dec 27</div>
-        <div class="stat-label">Graduation</div>
-      </div>
+      <div class="stat"><div class="stat-num">3.5</div><div class="stat-label">GPA</div></div>
+      <div class="stat"><div class="stat-num">2</div><div class="stat-label">Co-op terms completed</div></div>
+      <div class="stat"><div class="stat-num">6</div><div class="stat-label">Deployed projects</div></div>
+      <div class="stat"><div class="stat-num">Dec 27</div><div class="stat-label">Graduation</div></div>
     </div>
   </div>
 </section>
@@ -203,9 +181,9 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
         <p class="exp-company">York Region · Newmarket, ON</p>
         <ul>
           <li>Triaged and investigated 500+ monthly IT incidents across 15+ service categories, identifying recurring issue patterns and coordinating with technicians to resolve root causes</li>
-          <li>Built incident tracking dashboards in ServiceNow, Excel, and Power BI monitoring volume, priority, and resolution time across a team of 10+ technicians, with findings informing infrastructure and staffing decisions</li>
+          <li>Built incident tracking dashboards in ServiceNow, Excel, and Power BI monitoring volume, priority, and resolution time across a team of 10+ technicians</li>
+          <li>Wrote SQL queries and Python scripts to automate recurring IT reporting tasks, reducing manual effort and improving data consistency across operational workflows</li>
           <li>Standardized ticket taxonomy and documentation practices to improve data consistency and enable accurate security and operational reporting for management</li>
-          <li>Coordinated with vendors and internal teams to manage software, hardware, and access-related requests, maintaining accurate records for audit and compliance purposes</li>
         </ul>
       </div>
     </div>
@@ -232,6 +210,21 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
 
     <div class="project-card featured reveal">
       <div class="project-num">01 / Featured</div>
+      <h3>CacheLayer</h3>
+      <p class="project-stack">Python · FastAPI · sentence-transformers · SQLite · Docker · Railway</p>
+      <p class="project-desc">Multi-tenant semantic caching proxy for LLM APIs. Intercepts paraphrased queries using sentence embeddings and cosine similarity, returning cached responses in 8ms at zero token cost. Supports OpenAI and Anthropic with automatic routing. Per-user API key auth, isolated cache stores, rate limiting, and a live public endpoint.</p>
+      <div class="project-tags">
+        <span>93.3% hit rate</span><span>216x speedup</span><span>Multi-tenant</span><span>Live API</span>
+      </div>
+      <div class="project-links">
+        <a href="https://cachelayer.up.railway.app" target="_blank">Live</a>
+        <a href="cachelayer-system-design.html" target="_blank">System Design</a>
+        <a href="https://github.com/ZainRizvi9/CacheLayer" target="_blank">GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal" style="transition-delay:0.05s;">
+      <div class="project-num">02</div>
       <h3>SalesRadar</h3>
       <p class="project-stack">React · Node.js · Express · IBM Watson NLU · Salesforce API · NewsAPI · Vercel · Railway</p>
       <p class="project-desc">B2B account intelligence platform that analyzes real-time news through IBM Watson NLU to extract buying signals and score purchase intent. Features real-time search, account comparison mode, and one-click Salesforce CRM integration via OAuth 2.0 REST API that creates a Lead with the full intelligence report attached.</p>
@@ -245,11 +238,11 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
       </div>
     </div>
 
-    <div class="project-card reveal" style="transition-delay:0.05s;">
-      <div class="project-num">02</div>
+    <div class="project-card reveal" style="transition-delay:0.1s;">
+      <div class="project-num">03</div>
       <h3>NFL Contract Value Analyzer</h3>
       <p class="project-stack">Python · XGBoost · K-Means · scikit-learn · pandas · Streamlit · Plotly</p>
-      <p class="project-desc">ML system predicting fair market APY for 264 active NFL players. Separate XGBoost models per position achieve R2 of 0.96 for QBs and MAE under $1M for WRs and TEs. K-Means clustering discovers player archetypes without predefined labels. Built on a deterministic pipeline joining 50,000+ contract records with nflverse stats.</p>
+      <p class="project-desc">ML system predicting fair market APY for 264 active NFL players. Separate XGBoost models per position achieve R2 of 0.96 for QBs and MAE under $1M for WRs and TEs. K-Means clustering discovers player archetypes without predefined labels across 50,000+ records.</p>
       <div class="project-tags">
         <span>XGBoost</span><span>K-Means</span><span>Feature Engineering</span><span>Streamlit</span>
       </div>
@@ -260,32 +253,18 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
       </div>
     </div>
 
-    <div class="project-card reveal" style="transition-delay:0.1s;">
-      <div class="project-num">03</div>
+    <div class="project-card reveal" style="transition-delay:0.15s;">
+      <div class="project-num">04</div>
       <h3>Court Vision — NBA Analytics</h3>
-      <p class="project-stack">Python · PostgreSQL · nba_api · Streamlit · Plotly · Tableau · Supabase</p>
-      <p class="project-desc">End-to-end NBA analytics pipeline ingesting 1,400+ player-season records across 6 seasons into a PostgreSQL star schema on Supabase. Computes a composite Player Value Score across scoring, defense, playmaking, rebounding, and clutch performance. Deployed as an interactive Streamlit dashboard with a live-connected Tableau BI layer for salary efficiency and team ranking analysis.</p>
+      <p class="project-stack">Python · PostgreSQL · nba_api · Streamlit · Plotly · Supabase · Docker · Dagster · dbt</p>
+      <p class="project-desc">End-to-end NBA analytics pipeline ingesting 1,400+ player-season records into a PostgreSQL star schema on Supabase. Computes a composite Player Value Score across five performance dimensions. dbt transformation layers, Dagster orchestration, Docker containerization.</p>
       <div class="project-tags">
-        <span>PostgreSQL</span><span>Streamlit</span><span>Tableau</span><span>Data Engineering</span>
+        <span>PostgreSQL</span><span>dbt</span><span>Dagster</span><span>Data Engineering</span>
       </div>
       <div class="project-links">
         <a href="https://nbaanalytics9.streamlit.app" target="_blank">Live</a>
+        <a href="https://youtu.be/6sxuP4BoEio" target="_blank">Demo</a>
         <a href="https://github.com/ZainRizvi9/NBAAnalytics" target="_blank">GitHub</a>
-      </div>
-    </div>
-
-    <div class="project-card reveal" style="transition-delay:0.15s;">
-      <div class="project-num">04</div>
-      <h3>GitHub Secret Scanner</h3>
-      <p class="project-stack">Python · Shannon Entropy · Regex · PyGithub · Streamlit · Plotly</p>
-      <p class="project-desc">Two-layer credential detection engine scanning public repos for exposed secrets. Pattern matching across 14 credential types combined with Shannon entropy analysis to catch secrets patterns miss. Each finding includes real-world impact, attack vector, and remediation steps modeled after GitGuardian and TruffleHog.</p>
-      <div class="project-tags">
-        <span>Security</span><span>Entropy Detection</span><span>OSINT</span>
-      </div>
-      <div class="project-links">
-        <a href="https://git-scanner.streamlit.app" target="_blank">Live</a>
-        <a href="https://youtu.be/oLlbh0-Y8w8" target="_blank">Demo</a>
-        <a href="https://github.com/ZainRizvi9/github-secret-scanner" target="_blank">GitHub</a>
       </div>
     </div>
 
@@ -334,15 +313,15 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
     </div>
     <div class="skill-group">
       <h4>AI and ML</h4>
-      <p>IBM Watson NLU · XGBoost · scikit-learn · pandas · K-Means · Shannon entropy · Plotly · Streamlit</p>
+      <p>IBM Watson NLU · XGBoost · scikit-learn · sentence-transformers · pandas · K-Means · Plotly · Streamlit</p>
     </div>
     <div class="skill-group">
       <h4>Web</h4>
-      <p>React · Node.js · Express · Three.js · MongoDB · REST APIs · Salesforce API</p>
+      <p>React · Node.js · Express · FastAPI · Three.js · MongoDB · REST APIs · Salesforce API</p>
     </div>
     <div class="skill-group">
       <h4>Tools</h4>
-      <p>Git · AWS · Docker · PostgreSQL · Power BI · Tableau · Nginx · VS Code · Agile · SDLC</p>
+      <p>Git · AWS · Docker · PostgreSQL · Power BI · Excel · Tableau · Dagster · dbt · pytest · Nginx · Railway · VS Code · Agile · SDLC</p>
     </div>
   </div>
 </section>
@@ -368,49 +347,18 @@ footer p{font-family:var(--fm);font-size:0.7rem;color:var(--ink3);letter-spacing
 <script>
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cursor.style.left = mx + 'px';
-  cursor.style.top = my + 'px';
-});
-function animRing() {
-  rx += (mx - rx) * 0.12;
-  ry += (my - ry) * 0.12;
-  ring.style.left = rx + 'px';
-  ring.style.top = ry + 'px';
-  requestAnimationFrame(animRing);
-}
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}
 animRing();
-document.querySelectorAll('a,button,.hamburger').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    ring.style.transform = 'translate(-50%,-50%) scale(1.8)';
-    ring.style.opacity = '0.3';
-    cursor.style.transform = 'translate(-50%,-50%) scale(0.5)';
-  });
-  el.addEventListener('mouseleave', () => {
-    ring.style.transform = 'translate(-50%,-50%) scale(1)';
-    ring.style.opacity = '0.5';
-    cursor.style.transform = 'translate(-50%,-50%) scale(1)';
-  });
+document.querySelectorAll('a,button,.hamburger').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.transform='translate(-50%,-50%) scale(1.8)';ring.style.opacity='0.3';cursor.style.transform='translate(-50%,-50%) scale(0.5)';});
+  el.addEventListener('mouseleave',()=>{ring.style.transform='translate(-50%,-50%) scale(1)';ring.style.opacity='0.5';cursor.style.transform='translate(-50%,-50%) scale(1)';});
 });
-function toggleMenu() {
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      observer.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-if ('ontouchstart' in window) {
-  cursor.style.display = 'none';
-  ring.style.display = 'none';
-  document.body.style.cursor = 'auto';
-}
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+if('ontouchstart' in window){cursor.style.display='none';ring.style.display='none';document.body.style.cursor='auto';}
 </script>
 </body>
 </html>
