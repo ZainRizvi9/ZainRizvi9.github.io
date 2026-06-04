@@ -139,7 +139,7 @@ function BarberAvatar({ b, size=54, border_color=null }) {
   const bc = border_color || b.color;
   return (
     <div style={{ width:size, height:size, borderRadius:"50%", overflow:"hidden", border:`2px solid ${bc}`, flexShrink:0 }}>
-      <img src={b.img} alt={b.name} style={{ width:"100%", height:"100%", objectFit:"cover" }}/>
+      <img src={b.img} alt={b.name} style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top" }}/>
     </div>
   );
 }
@@ -383,7 +383,7 @@ function BarbersPage({ setPage, setBookingBarber }) {
             <div key={b.id} style={{ background:card, border:`1px solid ${border}`, borderLeft:`4px solid ${b.color}`, borderRadius:12, overflow:"hidden", display:"flex", flexWrap:"wrap" }}>
             {/* Large photo panel */}
             <div style={{ width:220, flexShrink:0, position:"relative" }}>
-            <img src={b.img} alt={b.name} style={{ width:"100%", height:"100%", minHeight:260, objectFit:"cover", objectPosition:"center top", display:"block" }}/>
+            <img src={b.img} alt={b.name} style={{ width:"100%", height:"100%", minHeight:260, objectFit:"cover", objectPosition: b.id===2 ? "center top" : "20% top", display:"block" }}/>
               <div style={{ position:"absolute", bottom:0, left:0, right:0, padding:"8px 12px", background:"rgba(0,0,0,0.55)" }}>
                 <p style={{ fontSize:10, color:greyLt }}>{b.exp} experience</p>
               </div>
