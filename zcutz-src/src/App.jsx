@@ -139,7 +139,7 @@ function BarberAvatar({ b, size=54, border_color=null }) {
   const bc = border_color || b.color;
   return (
     <div style={{ width:size, height:size, borderRadius:"50%", overflow:"hidden", border:`2px solid ${bc}`, flexShrink:0 }}>
-      <img src={b.img} alt={b.name} style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top" }}/>
+      <img src={b.img} alt={b.name} style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition: b.id===2 ? "center top" : "20% top" }}/>
     </div>
   );
 }
