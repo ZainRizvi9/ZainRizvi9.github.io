@@ -383,7 +383,7 @@ function BarbersPage({ setPage, setBookingBarber }) {
             <div key={b.id} style={{ background:card, border:`1px solid ${border}`, borderLeft:`4px solid ${b.color}`, borderRadius:12, overflow:"hidden", display:"flex", flexWrap:"wrap" }}>
             {/* Large photo panel */}
             <div style={{ width:220, flexShrink:0, position:"relative" }}>
-              <img src={b.img} alt={b.name} style={{ width:"100%", height:"100%", minHeight:260, objectFit:"cover", display:"block" }}/>
+            <img src={b.img} alt={b.name} style={{ width:"100%", height:"100%", minHeight:260, objectFit:"cover", objectPosition:"center top", display:"block" }}/>
               <div style={{ position:"absolute", bottom:0, left:0, right:0, padding:"8px 12px", background:"rgba(0,0,0,0.55)" }}>
                 <p style={{ fontSize:10, color:greyLt }}>{b.exp} experience</p>
               </div>
