@@ -23,8 +23,8 @@ const SERVICES = [
 ];
 
 const BARBERS = [
-  { id:1, initials:"DR", color:red,       img:"/zcutz/barber1.jpg", name:"Dave Reyes",  role:"Senior Barber",    exp:"8 years", specialty:["Skin fades","Tapers","Zero work"],    bio:"Dave is the go-to for razor-sharp fades. Eight years in, he still obsesses over every blend." },
-  { id:2, initials:"KO", color:blue,      img:"/zcutz/barber2.jpg", name:"Karim Osei",  role:"Master Barber",    exp:"5 years", specialty:["Beards","Classic cuts","Line-ups"],    bio:"Karim brings old-school barber tradition to every chair. His beard sculpting is second to none." },
+  { id:1, initials:"DR", color:red,       img:"/zcutz/barber1.jpeg", name:"Dave Reyes",  role:"Senior Barber",    exp:"8 years", specialty:["Skin fades","Tapers","Zero work"],    bio:"Dave is the go-to for razor-sharp fades. Eight years in, he still obsesses over every blend." },
+  { id:2, initials:"KO", color:blue,      img:"/zcutz/barber2.jpeg", name:"Karim Osei",  role:"Master Barber",    exp:"5 years", specialty:["Beards","Classic cuts","Line-ups"],    bio:"Karim brings old-school barber tradition to every chair. His beard sculpting is second to none." },
   { id:3, initials:"LP", color:"#374151", img:"/zcutz/barber3.jpg", name:"Lena Park",   role:"Barber & Stylist", exp:"6 years", specialty:["Scissor work","Textured cuts","Kids"], bio:"Lena blends precision scissor technique with creative flair. Favourite for textured and curly cuts." },
 ];
 
