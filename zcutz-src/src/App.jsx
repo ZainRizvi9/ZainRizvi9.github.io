@@ -380,12 +380,15 @@ function BarbersPage({ setPage, setBookingBarber }) {
         <p style={{ fontSize:14, color:grey, marginBottom:"3rem", fontWeight:300 }}>Every barber at ZCUTZ is fully trained and passionate about their craft.</p>
         <div style={{ display:"flex", flexDirection:"column", gap:22 }}>
           {BARBERS.map(b=>(
-            <div key={b.id} style={{ background:card, border:`1px solid ${border}`, borderLeft:`4px solid ${b.color}`, borderRadius:12, padding:"2rem", display:"flex", gap:"2rem", alignItems:"flex-start", flexWrap:"wrap" }}>
-              <div style={{ flexShrink:0, textAlign:"center", minWidth:72 }}>
-                <BarberAvatar b={b} size={72}/>
-                <p style={{ fontSize:10, color:grey, marginTop:6 }}>{b.exp}</p>
+            <div key={b.id} style={{ background:card, border:`1px solid ${border}`, borderLeft:`4px solid ${b.color}`, borderRadius:12, overflow:"hidden", display:"flex", flexWrap:"wrap" }}>
+            {/* Large photo panel */}
+            <div style={{ width:220, flexShrink:0, position:"relative" }}>
+              <img src={b.img} alt={b.name} style={{ width:"100%", height:"100%", minHeight:260, objectFit:"cover", display:"block" }}/>
+              <div style={{ position:"absolute", bottom:0, left:0, right:0, padding:"8px 12px", background:"rgba(0,0,0,0.55)" }}>
+                <p style={{ fontSize:10, color:greyLt }}>{b.exp} experience</p>
               </div>
-              <div style={{ flex:1, minWidth:200 }}>
+            </div>
+            <div style={{ flex:1, minWidth:200, padding:"2rem" }}>
                 <p style={{ fontSize:21, fontWeight:600, color:white, marginBottom:3 }}>{b.name}</p>
                 <p style={{ fontSize:12, color:b.color, fontWeight:600, letterSpacing:"0.04em", marginBottom:10 }}>{b.role}</p>
                 <p style={{ fontSize:14, color:grey, lineHeight:1.8, fontWeight:400, marginBottom:"1.25rem" }}>{b.bio}</p>
