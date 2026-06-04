@@ -23,9 +23,9 @@ const SERVICES = [
 ];
 
 const BARBERS = [
-  { id:1, initials:"DR", color:red,       name:"Dave Reyes",  role:"Senior Barber",    exp:"8 years", specialty:["Skin fades","Tapers","Zero work"],    bio:"Dave is the go-to for razor-sharp fades. Eight years in, he still obsesses over every blend." },
-  { id:2, initials:"KO", color:blue,      name:"Karim Osei",  role:"Master Barber",    exp:"5 years", specialty:["Beards","Classic cuts","Line-ups"],    bio:"Karim brings old-school barber tradition to every chair. His beard sculpting is second to none." },
-  { id:3, initials:"LP", color:"#374151", name:"Lena Park",   role:"Barber & Stylist", exp:"6 years", specialty:["Scissor work","Textured cuts","Kids"], bio:"Lena blends precision scissor technique with creative flair. Favourite for textured and curly cuts." },
+  { id:1, initials:"DR", color:red,       img:"/zcutz/barber1.jpg", name:"Dave Reyes",  role:"Senior Barber",    exp:"8 years", specialty:["Skin fades","Tapers","Zero work"],    bio:"Dave is the go-to for razor-sharp fades. Eight years in, he still obsesses over every blend." },
+  { id:2, initials:"KO", color:blue,      img:"/zcutz/barber2.jpg", name:"Karim Osei",  role:"Master Barber",    exp:"5 years", specialty:["Beards","Classic cuts","Line-ups"],    bio:"Karim brings old-school barber tradition to every chair. His beard sculpting is second to none." },
+  { id:3, initials:"LP", color:"#374151", img:"/zcutz/barber3.jpg", name:"Lena Park",   role:"Barber & Stylist", exp:"6 years", specialty:["Scissor work","Textured cuts","Kids"], bio:"Lena blends precision scissor technique with creative flair. Favourite for textured and curly cuts." },
 ];
 
 const TIMES  = ["9:00 AM","9:30 AM","10:00 AM","10:30 AM","11:00 AM","11:30 AM","1:00 PM","1:30 PM","2:00 PM","2:30 PM","3:00 PM","3:30 PM","4:00 PM"];
@@ -125,13 +125,22 @@ function IconRazor({ size=28, color=red }) {
 }
 const SERVICE_ICONS = [IconFade, IconScissors, IconBeard, IconCutBeard, IconKids, IconRazor];
 
-// Fix #3 — RadioDot SVG: explicit visual affordance for single-select pattern from slides
 function RadioDot({ selected, color=red }) {
   return (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style={{ flexShrink:0 }}>
       <circle cx="9" cy="9" r="8" stroke={selected ? color : border} strokeWidth="1.5" fill="none"/>
       {selected && <circle cx="9" cy="9" r="4.5" fill={color}/>}
     </svg>
+  );
+}
+
+// ─── Barber avatar helper ────────────────────────────────────────────────────
+function BarberAvatar({ b, size=54, border_color=null }) {
+  const bc = border_color || b.color;
+  return (
+    <div style={{ width:size, height:size, borderRadius:"50%", overflow:"hidden", border:`2px solid ${bc}`, flexShrink:0 }}>
+      <img src={b.img} alt={b.name} style={{ width:"100%", height:"100%", objectFit:"cover" }}/>
+    </div>
   );
 }
 
@@ -311,10 +320,9 @@ function HomePage({ setPage }) {
           <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))", gap:16 }}>
             {BARBERS.map(b=>(
               <div key={b.id} onClick={()=>setPage("barbers")} style={{ background:card, border:`1px solid ${border}`, borderLeft:`4px solid ${b.color}`, borderRadius:10, padding:"1.75rem", cursor:"pointer" }}>
-                <div style={{ width:54, height:54, borderRadius:"50%", background:b.color, display:"flex", alignItems:"center", justifyContent:"center", fontSize:17, fontWeight:600, color:"#fff", marginBottom:"1rem" }}>{b.initials}</div>
+                <div style={{ marginBottom:"1rem" }}><BarberAvatar b={b} size={54}/></div>
                 <p style={{ fontSize:17, fontWeight:600, color:white, marginBottom:3 }}>{b.name}</p>
                 <p style={{ fontSize:12, color:b.color, fontWeight:600, letterSpacing:"0.04em", marginBottom:8 }}>{b.role}</p>
-                {/* Fix #3 — bumped from 300 to 400 for readability on dark bg */}
                 <p style={{ fontSize:12, color:grey, lineHeight:1.7, fontWeight:400 }}>{b.bio}</p>
               </div>
             ))}
@@ -374,13 +382,12 @@ function BarbersPage({ setPage, setBookingBarber }) {
           {BARBERS.map(b=>(
             <div key={b.id} style={{ background:card, border:`1px solid ${border}`, borderLeft:`4px solid ${b.color}`, borderRadius:12, padding:"2rem", display:"flex", gap:"2rem", alignItems:"flex-start", flexWrap:"wrap" }}>
               <div style={{ flexShrink:0, textAlign:"center", minWidth:72 }}>
-                <div style={{ width:72, height:72, borderRadius:"50%", background:b.color, display:"flex", alignItems:"center", justifyContent:"center", fontSize:22, fontWeight:600, color:"#fff", marginBottom:6 }}>{b.initials}</div>
-                <p style={{ fontSize:10, color:grey }}>{b.exp}</p>
+                <BarberAvatar b={b} size={72}/>
+                <p style={{ fontSize:10, color:grey, marginTop:6 }}>{b.exp}</p>
               </div>
               <div style={{ flex:1, minWidth:200 }}>
                 <p style={{ fontSize:21, fontWeight:600, color:white, marginBottom:3 }}>{b.name}</p>
                 <p style={{ fontSize:12, color:b.color, fontWeight:600, letterSpacing:"0.04em", marginBottom:10 }}>{b.role}</p>
-                {/* Fix #3 — weight 400 for legibility, not 300 */}
                 <p style={{ fontSize:14, color:grey, lineHeight:1.8, fontWeight:400, marginBottom:"1.25rem" }}>{b.bio}</p>
                 <div style={{ display:"flex", flexWrap:"wrap", gap:6, marginBottom:"1.5rem" }}>
                   {b.specialty.map(tag=>(
@@ -446,7 +453,6 @@ function BookingPage({ preService, preBarber }) {
   const [selAlert,setSelAlert]= useState(null);
 
   const showAlert = (msg) => { setSelAlert(msg); setTimeout(()=>setSelAlert(null), 2200); };
-
   const totalDays = daysInMonth(calY,calM);
   const startDay  = firstDayOf(calY,calM);
 
@@ -501,7 +507,6 @@ function BookingPage({ preService, preBarber }) {
 
         {selAlert && <Alert type="success">{selAlert}</Alert>}
 
-        {/* Step 1 — Fix #1: radio dot affordance on each service card */}
         {step===1 && (
           <div>
             <h2 style={{ fontSize:18, fontWeight:600, color:white, marginBottom:"1.25rem" }}>Which service?</h2>
@@ -513,7 +518,6 @@ function BookingPage({ preService, preBarber }) {
                 return (
                   <div key={s.id} onClick={()=>{ setService(s); setErrors({}); showAlert(`${s.name} selected — $${s.price}`); }}
                     style={{ background:sel?`${red}18`:card, border:`1px solid ${sel?red:border}`, borderRadius:8, padding:"1.1rem", cursor:"pointer", transition:"all 0.15s", position:"relative" }}>
-                    {/* Radio dot top-right — single-select affordance from slides */}
                     <div style={{ position:"absolute", top:10, right:10 }}>
                       <RadioDot selected={sel} color={red}/>
                     </div>
@@ -527,7 +531,6 @@ function BookingPage({ preService, preBarber }) {
           </div>
         )}
 
-        {/* Step 2 — Fix #2: explicit radio button on each barber row */}
         {step===2 && (
           <div>
             <h2 style={{ fontSize:18, fontWeight:600, color:white, marginBottom:"1.25rem" }}>Choose your barber</h2>
@@ -539,9 +542,8 @@ function BookingPage({ preService, preBarber }) {
                 return (
                   <div key={b.id} onClick={()=>{ setBarber(b); setErrors({}); showAlert(`${b.name} selected`); }}
                     style={{ background:sel?`${blue}15`:card, border:`1px solid ${sel?blue:border}`, borderRadius:8, padding:"1rem 1.25rem", cursor:"pointer", display:"flex", alignItems:"center", gap:14, transition:"all 0.15s" }}>
-                    {/* Explicit radio button — from slides: radio buttons for single selection */}
                     <RadioDot selected={sel} color={blue}/>
-                    <div style={{ width:46, height:46, borderRadius:"50%", background:sel?b.color:black, display:"flex", alignItems:"center", justifyContent:"center", fontSize:14, fontWeight:600, color:"#fff", flexShrink:0, transition:"background 0.15s" }}>{b.initials}</div>
+                    <BarberAvatar b={b} size={46} border_color={sel?b.color:border}/>
                     <div style={{ flex:1 }}>
                       <p style={{ fontSize:15, fontWeight:600, color:white }}>{b.name}</p>
                       <p style={{ fontSize:12, color:sel?greyLt:grey }}>{b.role} · {b.exp}</p>
@@ -554,7 +556,6 @@ function BookingPage({ preService, preBarber }) {
           </div>
         )}
 
-        {/* Step 3 */}
         {step===3 && (
           <div>
             <h2 style={{ fontSize:18, fontWeight:600, color:white, marginBottom:"1.25rem" }}>Pick a date & time</h2>
@@ -595,7 +596,6 @@ function BookingPage({ preService, preBarber }) {
           </div>
         )}
 
-        {/* Step 4 */}
         {step===4 && (
           <div>
             <h2 style={{ fontSize:18, fontWeight:600, color:white, marginBottom:4 }}>Your details</h2>
@@ -615,7 +615,6 @@ function BookingPage({ preService, preBarber }) {
           </div>
         )}
 
-        {/* Confirmation */}
         {step===5 && (
           <div style={{ textAlign:"center", padding:"3rem 1rem", animation:"fadeIn 0.4s ease" }}>
             <div style={{ display:"flex", justifyContent:"center", marginBottom:"1.25rem" }}><BarberPole size={38}/></div>
@@ -679,7 +678,7 @@ function ContactPage() {
         <div style={{ background:card, border:`1px solid ${border}`, borderRadius:10, padding:"1.75rem" }}>
           <p style={{ fontSize:16, fontWeight:600, color:white, marginBottom:"1.25rem" }}>Send us a message</p>
           {submitted
-            ? <Alert type="success">Message sent! We'll get back to you within 24 hours.</Alert>
+            ? <Alert type="success">Message sent! We will get back to you within 24 hours.</Alert>
             : (
               <>
                 <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
@@ -732,7 +731,7 @@ function Footer({ setPage }) {
       </div>
       <div style={{ maxWidth:980, margin:"1.5rem auto 0", borderTop:`1px solid ${border}`, paddingTop:"1.25rem", display:"flex", justifyContent:"space-between", flexWrap:"wrap", gap:8 }}>
         <p style={{ fontSize:11, color:grey }}>© 2026 ZCUTZ Barbershop</p>
-        <p style={{ fontSize:11, color:greyLt }}>Designed by [Your Name] · SEG3125 Assignment 2</p>
+        <p style={{ fontSize:11, color:greyLt }}>Designed by Zain Rizvi · SEG3125 Assignment 2</p>
       </div>
     </footer>
   );
