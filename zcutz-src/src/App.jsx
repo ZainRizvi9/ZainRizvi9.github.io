@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // ─── Colour tokens ──────────────────────────────────────────────────────────
 const black   = "#0a0a0a";
@@ -25,7 +25,7 @@ const SERVICES = [
 const BARBERS = [
   { id:1, initials:"DR", color:red,       img:"/zcutz/barber1.jpeg", name:"Dave Reyes",  role:"Senior Barber",    exp:"8 years", specialty:["Skin fades","Tapers","Zero work"],    bio:"Dave is the go-to for razor-sharp fades. Eight years in, he still obsesses over every blend." },
   { id:2, initials:"KO", color:blue,      img:"/zcutz/barber2.jpeg", name:"Karim Osei",  role:"Master Barber",    exp:"5 years", specialty:["Beards","Classic cuts","Line-ups"],    bio:"Karim brings old-school barber tradition to every chair. His beard sculpting is second to none." },
-  { id:3, initials:"LP", color:"#374151", img:"/zcutz/barber3.jpg", name:"Lena Park",   role:"Barber & Stylist", exp:"6 years", specialty:["Scissor work","Textured cuts","Kids"], bio:"Lena blends precision scissor technique with creative flair. Favourite for textured and curly cuts." },
+  { id:3, initials:"LP", color:"#374151", img:"/zcutz/barber3.jpg",  name:"Lena Park",   role:"Barber & Stylist", exp:"6 years", specialty:["Scissor work","Textured cuts","Kids"], bio:"Lena blends precision scissor technique with creative flair. Favourite for textured and curly cuts." },
 ];
 
 const TIMES  = ["9:00 AM","9:30 AM","10:00 AM","10:30 AM","11:00 AM","11:30 AM","1:00 PM","1:30 PM","2:00 PM","2:30 PM","3:00 PM","3:30 PM","4:00 PM"];
@@ -139,7 +139,7 @@ function BarberAvatar({ b, size=54, border_color=null }) {
   const bc = border_color || b.color;
   return (
     <div style={{ width:size, height:size, borderRadius:"50%", overflow:"hidden", border:`2px solid ${bc}`, flexShrink:0 }}>
-      <img src={b.img} alt={b.name} style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition: b.id===2 ? "center top" : "20% top" }}/>
+      <img src={b.img} alt={b.name} style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"center top" }}/>
     </div>
   );
 }
@@ -381,14 +381,24 @@ function BarbersPage({ setPage, setBookingBarber }) {
         <div style={{ display:"flex", flexDirection:"column", gap:22 }}>
           {BARBERS.map(b=>(
             <div key={b.id} style={{ background:card, border:`1px solid ${border}`, borderLeft:`4px solid ${b.color}`, borderRadius:12, overflow:"hidden", display:"flex", flexWrap:"wrap" }}>
-            {/* Large photo panel */}
-            <div style={{ width:220, flexShrink:0, position:"relative" }}>
-            <img src={b.img} alt={b.name} style={{ width:"100%", height:"100%", minHeight:260, objectFit:"cover", objectPosition: b.id===2 ? "center top" : "20% top", display:"block" }}/>
-              <div style={{ position:"absolute", bottom:0, left:0, right:0, padding:"8px 12px", background:"rgba(0,0,0,0.55)" }}>
-                <p style={{ fontSize:10, color:greyLt }}>{b.exp} experience</p>
+              {/* Fixed-height photo panel — same for all barbers */}
+              <div style={{ width:220, flexShrink:0, position:"relative", height:280 }}>
+                <img
+                  src={b.img}
+                  alt={b.name}
+                  style={{
+                    width:"100%",
+                    height:"100%",
+                    objectFit:"cover",
+                    objectPosition: b.id===2 ? "center 20%" : "20% top",
+                    display:"block"
+                  }}
+                />
+                <div style={{ position:"absolute", bottom:0, left:0, right:0, padding:"8px 12px", background:"rgba(0,0,0,0.55)" }}>
+                  <p style={{ fontSize:10, color:greyLt }}>{b.exp} experience</p>
+                </div>
               </div>
-            </div>
-            <div style={{ flex:1, minWidth:200, padding:"2rem" }}>
+              <div style={{ flex:1, minWidth:200, padding:"2rem", display:"flex", flexDirection:"column", justifyContent:"center" }}>
                 <p style={{ fontSize:21, fontWeight:600, color:white, marginBottom:3 }}>{b.name}</p>
                 <p style={{ fontSize:12, color:b.color, fontWeight:600, letterSpacing:"0.04em", marginBottom:10 }}>{b.role}</p>
                 <p style={{ fontSize:14, color:grey, lineHeight:1.8, fontWeight:400, marginBottom:"1.25rem" }}>{b.bio}</p>
@@ -397,7 +407,9 @@ function BarbersPage({ setPage, setBookingBarber }) {
                     <span key={tag} style={{ fontSize:11, color:greyLt, background:black, border:`1px solid ${border}`, borderRadius:4, padding:"3px 11px" }}>{tag}</span>
                   ))}
                 </div>
-                <Btn onClick={()=>{ setBookingBarber(b); setPage("book"); }}>Book with {b.name.split(" ")[0]} →</Btn>
+                <div>
+                  <Btn onClick={()=>{ setBookingBarber(b); setPage("book"); }}>Book with {b.name.split(" ")[0]} →</Btn>
+                </div>
               </div>
             </div>
           ))}
@@ -440,11 +452,14 @@ function StepIcon({ step, active }) {
 
 const STEP_LABELS = ["","Choose service","Choose barber","Pick date & time","Your details"];
 
-function BookingPage({ preService, preBarber }) {
+function BookingPage({ preService, preBarber, onBookingComplete }) {
   const today = new Date();
+  // Normalise today to midnight for clean date comparisons
+  const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
   const [step,    setStep]    = useState(1);
-  const [service, setService] = useState(preService||null);
-  const [barber,  setBarber]  = useState(preBarber||null);
+  const [service, setService] = useState(preService || null);
+  const [barber,  setBarber]  = useState(preBarber  || null);
   const [calY,    setCalY]    = useState(today.getFullYear());
   const [calM,    setCalM]    = useState(today.getMonth());
   const [date,    setDate]    = useState(null);
@@ -455,9 +470,20 @@ function BookingPage({ preService, preBarber }) {
   const [errors,  setErrors]  = useState({});
   const [selAlert,setSelAlert]= useState(null);
 
+  // Sync preService / preBarber if parent updates them (e.g. navigating from Services or Barbers page)
+  useEffect(() => { if (preService) setService(preService); }, [preService]);
+  useEffect(() => { if (preBarber)  setBarber(preBarber);  }, [preBarber]);
+
   const showAlert = (msg) => { setSelAlert(msg); setTimeout(()=>setSelAlert(null), 2200); };
-  const totalDays = daysInMonth(calY,calM);
-  const startDay  = firstDayOf(calY,calM);
+  const totalDays = daysInMonth(calY, calM);
+  const startDay  = firstDayOf(calY, calM);
+
+  const resetBooking = () => {
+    setStep(1); setService(null); setBarber(null);
+    setDate(null); setTime(null);
+    setName(""); setEmail(""); setPhone("");
+    setErrors({});
+  };
 
   const validateAndNext = () => {
     if (step===1 && !service)  { setErrors({ service:"Please select a service to continue." }); return; }
@@ -576,11 +602,18 @@ function BookingPage({ preService, preBarber }) {
               <div style={{ display:"grid", gridTemplateColumns:"repeat(7,1fr)", gap:3 }}>
                 {Array.from({length:startDay},(_,i)=><div key={"p"+i}/>)}
                 {Array.from({length:totalDays},(_,i)=>{
-                  const day=i+1, ds=`${MONTHS[calM]} ${day}, ${calY}`;
-                  const past=new Date(calY,calM,day)<new Date(today.getFullYear(),today.getMonth(),today.getDate());
-                  const sel=date===ds;
-                  return <div key={day} onClick={()=>{ if(!past){ setDate(ds); setErrors(e=>({...e,date:null})); showAlert(`${ds} selected`); }}}
-                    style={{ textAlign:"center", fontSize:12, padding:"7px 0", borderRadius:5, cursor:past?"default":"pointer", background:sel?red:"transparent", color:past?border:sel?"#fff":white, transition:"background 0.1s" }}>{day}</div>;
+                  const day=i+1;
+                  const ds=`${MONTHS[calM]} ${day}, ${calY}`;
+                  // Allow today — only grey out strictly past dates
+                  const past = new Date(calY, calM, day) < todayMidnight;
+                  const sel  = date===ds;
+                  return (
+                    <div key={day}
+                      onClick={()=>{ if(!past){ setDate(ds); setErrors(e=>({...e,date:null})); showAlert(`${ds} selected`); }}}
+                      style={{ textAlign:"center", fontSize:12, padding:"7px 0", borderRadius:5, cursor:past?"default":"pointer", background:sel?red:"transparent", color:past?border:sel?"#fff":white, transition:"background 0.1s" }}>
+                      {day}
+                    </div>
+                  );
                 })}
               </div>
             </div>
@@ -590,8 +623,12 @@ function BookingPage({ preService, preBarber }) {
                 <div style={{ display:"flex", flexWrap:"wrap", gap:8 }}>
                   {TIMES.map(t=>{
                     const sel=time===t;
-                    return <div key={t} onClick={()=>{ setTime(t); setErrors(e=>({...e,time:null})); showAlert(`${t} selected`); }}
-                      style={{ padding:"9px 14px", borderRadius:6, cursor:"pointer", fontSize:13, fontWeight:500, background:sel?red:card, border:`1px solid ${sel?red:border}`, color:sel?"#fff":white, transition:"all 0.15s" }}>{t}</div>;
+                    return (
+                      <div key={t} onClick={()=>{ setTime(t); setErrors(e=>({...e,time:null})); showAlert(`${t} selected`); }}
+                        style={{ padding:"9px 14px", borderRadius:6, cursor:"pointer", fontSize:13, fontWeight:500, background:sel?red:card, border:`1px solid ${sel?red:border}`, color:sel?"#fff":white, transition:"all 0.15s" }}>
+                        {t}
+                      </div>
+                    );
                   })}
                 </div>
               </div>
@@ -634,13 +671,16 @@ function BookingPage({ preService, preBarber }) {
                 </div>
               ))}
             </div>
-            <Btn onClick={()=>{ setStep(1);setService(null);setBarber(null);setDate(null);setTime(null);setName("");setEmail("");setPhone("");setErrors({}); }}>Book another appointment</Btn>
+            <Btn onClick={resetBooking}>Book another appointment</Btn>
           </div>
         )}
 
         {step<5 && (
           <div style={{ display:"flex", justifyContent:"space-between", marginTop:"2.5rem" }}>
-            {step>1?<Btn variant="outline" onClick={()=>{ setStep(s=>s-1); setErrors({}); }}>← Back</Btn>:<div/>}
+            {step>1
+              ? <Btn variant="outline" onClick={()=>{ setStep(s=>s-1); setErrors({}); }}>← Back</Btn>
+              : <div/>
+            }
             <Btn onClick={validateAndNext}>{step===4?"Confirm booking →":"Continue →"}</Btn>
           </div>
         )}
@@ -671,7 +711,12 @@ function ContactPage() {
         <Label color={red}>Find us</Label>
         <h1 style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:"clamp(3rem,7vw,4.5rem)", letterSpacing:"0.06em", color:white, margin:"12px 0 2.5rem" }}>CONTACT US</h1>
         <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(175px,1fr))", gap:14, marginBottom:"2.5rem" }}>
-          {[{label:"Address",val:"218 Bank St\nOttawa, ON K2P 1X1"},{label:"Phone",val:"(613) 555-0192"},{label:"Email",val:"hello@zcutz.ca"},{label:"Hours",val:"Mon–Fri  9am–7pm\nSat  9am–5pm\nSun  Closed"}].map(item=>(
+          {[
+            {label:"Address", val:"218 Bank St\nOttawa, ON K2P 1X1"},
+            {label:"Phone",   val:"(613) 555-0192"},
+            {label:"Email",   val:"hello@zcutz.ca"},
+            {label:"Hours",   val:"Mon–Fri  9am–7pm\nSat  9am–5pm\nSun  Closed"},
+          ].map(item=>(
             <div key={item.label} style={{ background:card, border:`1px solid ${border}`, borderTop:`3px solid ${red}`, borderRadius:10, padding:"1.25rem" }}>
               <p style={{ fontSize:10, color:red, fontWeight:600, letterSpacing:"0.15em", marginBottom:10 }}>{item.label.toUpperCase()}</p>
               <p style={{ fontSize:13, color:white, lineHeight:1.9, whiteSpace:"pre-line", fontWeight:400 }}>{item.val}</p>
@@ -745,6 +790,9 @@ export default function App() {
   const [page,           setPage]           = useState("home");
   const [bookingService, setBookingService] = useState(null);
   const [bookingBarber,  setBookingBarber]  = useState(null);
+
+  // Scroll to top on page change
+  useEffect(() => { window.scrollTo(0, 0); }, [page]);
 
   const renderPage = () => {
     switch (page) {
