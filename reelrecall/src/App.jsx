@@ -163,7 +163,6 @@ function SetupScreen({ onStart, shelfPosters }) {
     { val: 'action',   label: 'Action' },
     { val: 'comedy',   label: 'Comedy' },
     { val: 'horror',   label: 'Horror' },
-    { val: 'classics', label: 'Classics' },
   ]
   const levels = [
     { val: 'easy',   label: 'Easy — 6 pairs' },

@@ -46,16 +46,4 @@ export const MOVIES = {
     { t: '28 Days Later',   y: 2002, id: 170 },
     { t: 'Midsommar',       y: 2019, id: 530385 },
   ],
-  classics: [
-    { t: 'Casablanca',          y: 1942, id: 289 },
-    { t: 'The Godfather',       y: 1972, id: 238 },
-    { t: "Singin' in the Rain", y: 1952, id: 872 },
-    { t: 'Rear Window',         y: 1954, id: 567 },
-    { t: 'Some Like It Hot',    y: 1959, id: 239 },
-    { t: 'Sunset Boulevard',    y: 1950, id: 599 },
-    { t: '12 Angry Men',        y: 1957, id: 389 },
-    { t: 'Roman Holiday',       y: 1953, id: 804 },
-    { t: 'Lawrence of Arabia',  y: 1962, id: 947 },
-    { t: 'Vertigo',             y: 1958, id: 426 },
-  ],
 }
