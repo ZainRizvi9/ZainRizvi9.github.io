@@ -30,8 +30,8 @@ export const MOVIES = {
     { t: 'Knives Out',                y: 2019, id: 546554 },
     { t: "Ferris Bueller's Day Off",  y: 1986, id: 9377 },
     { t: 'The Princess Bride',        y: 1987, id: 2493 },
-    { t: 'Clueless',                  y: 1995, id: 9603 },   
-    { t: 'Game Night',                y: 2018, id: 445571 }, 
+    { t: 'Clueless',                  y: 1995, id: 9603 },
+    { t: 'Game Night',                y: 2018, id: 445571 },
     { t: 'Crazy Rich Asians',         y: 2018, id: 455207 },
   ],
   horror: [
@@ -43,7 +43,7 @@ export const MOVIES = {
     { t: 'A Quiet Place',   y: 2018, id: 447332 },
     { t: 'Hereditary',      y: 2018, id: 493922 },
     { t: 'Scream',          y: 1996, id: 4232 },
-    { t: '28 Days Later',   y: 2002, id: 170 }, 
+    { t: '28 Days Later',   y: 2002, id: 170 },
     { t: 'Midsommar',       y: 2019, id: 530385 },
   ],
   classics: [

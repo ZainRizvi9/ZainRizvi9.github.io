@@ -24,7 +24,26 @@ async function loadPosters(movieList) {
   }))
 }
 
-const SHELF_IDS = [155, 76341, 562, 98, 948, 419430, 578, 238, 289, 27205, 346364, 694, 862, 8363, 120467, 4477, 274, 389]
+const SHELF_IDS = [
+  155,    // The Dark Knight
+  76341,  // Mad Max: Fury Road
+  562,    // Die Hard
+  98,     // Gladiator
+  948,    // Halloween
+  419430, // Get Out
+  578,    // Jaws
+  238,    // The Godfather
+  289,    // Casablanca
+  27205,  // Inception
+  346364, // It
+  694,    // The Shining
+  862,    // Toy Story
+  8363,   // Superbad
+  120467, // The Grand Budapest Hotel
+  426,    // Vertigo
+  947,    // Lawrence of Arabia
+  389     // 12 Angry Men
+]
 
 const IconFilm = () => (
   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
