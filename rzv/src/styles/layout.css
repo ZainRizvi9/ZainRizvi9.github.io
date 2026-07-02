@@ -1,0 +1,170 @@
+:root {
+  --header-h: 112px;
+}
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.promo-strip {
+  background: var(--rust);
+  color: var(--text-on-dark);
+}
+.promo-strip__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-4);
+  padding: 10px 0;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  flex-wrap: wrap;
+}
+.promo-strip__link {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+
+.nav {
+  background: rgba(18, 24, 26, 0.97);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line-dark);
+  color: var(--text-on-dark);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.nav__mark {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-style: italic;
+  font-size: 20px;
+  letter-spacing: 0.02em;
+}
+
+.nav__links {
+  display: flex;
+  gap: var(--sp-6);
+}
+
+.nav__link {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-on-dark-dim);
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav__link:hover,
+.nav__link.active {
+  color: var(--text-on-dark);
+}
+
+.nav__link.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -13px;
+  height: 1.5px;
+  background: var(--rust);
+}
+
+.nav__cart {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  color: var(--text-on-dark);
+  font-size: 13px;
+}
+
+@media (max-width: 720px) {
+  .nav__links {
+    display: none;
+  }
+}
+
+/* Every page reserves space for the fixed header — the hero bleeds full-width
+   but its content still starts below it via hero__content padding, not by
+   letting the header float over the top of the document. */
+main {
+  display: block;
+  padding-top: var(--header-h);
+}
+
+/* ---- Footer ---- */
+.footer {
+  background: var(--ink);
+  color: var(--text-on-dark);
+  padding-top: var(--sp-7);
+  border-top: 1px solid var(--line-dark);
+}
+
+.footer__inner {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: var(--sp-6);
+  padding-bottom: var(--sp-8);
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.footer__tag {
+  color: var(--text-on-dark-dim);
+  margin-top: var(--sp-3);
+  max-width: 32ch;
+  line-height: 1.5;
+}
+
+.footer__heading {
+  color: var(--mist);
+  margin-bottom: var(--sp-4);
+}
+
+.footer__col ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.footer__col a {
+  color: var(--text-on-dark-dim);
+  font-size: 14px;
+}
+.footer__col a:hover {
+  color: var(--text-on-dark);
+}
+
+.footer__note {
+  color: var(--text-on-dark-dim);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.footer__bottom {
+  padding: var(--sp-5) 0;
+  color: var(--mist);
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  .footer__inner {
+    grid-template-columns: 1fr 1fr;
+  }
+}
