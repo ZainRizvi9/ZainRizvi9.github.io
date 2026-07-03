@@ -6,8 +6,8 @@
 }
 
 .hero--short {
-  height: 62vh;
-  min-height: 460px;
+  height: 74vh;
+  min-height: 600px;
 }
 .hero__photo {
   position: absolute;
