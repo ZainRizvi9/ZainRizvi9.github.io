@@ -1,15 +1,15 @@
 :root {
-  /* ---- Color: named per the alpine palette ---- */
-  --ink: #12181a;          /* primary dark ground, shadowed rock */
-  --ink-2: #1c2426;        /* elevated dark surface */
-  --ink-3: #263130;        /* hover / border on dark */
-  --stone: #e7e2d8;        /* warm stone, light section ground */
-  --paper: #f4f2ed;        /* lightest surface, cards on stone */
-  --rust: #b5502b;         /* alpenglow — primary accent, CTAs */
-  --rust-dim: #8f3d20;     /* rust hover state */
-  --moss: #4b5c42;         /* secondary accent, tags, success */
-  --mist: #aeb8b4;         /* muted borders / disabled on dark */
-  --mist-2: #8b938e;       /* muted text on light */
+  /* ---- Color: navy / gold alpine-night palette ---- */
+  --ink: #141b2e;           /* primary dark ground, night sky */
+  --ink-2: #1b2440;         /* elevated dark surface */
+  --ink-3: #232f52;         /* hover / border on dark */
+  --stone: #e7e2d8;         /* warm stone, light section ground */
+  --paper: #f4f2ed;         /* lightest surface, cards on stone */
+  --rust: #c89b3c;          /* warm gold — primary accent, CTAs */
+  --rust-dim: #a67d2e;      /* gold hover state */
+  --moss: #7a3b4c;          /* secondary accent, tags, "done" state */
+  --mist: #b3ada6;          /* muted borders / disabled on dark */
+  --mist-2: #8f8880;        /* muted text on light */
   --text-on-dark: #f1efe9;
   --text-on-dark-dim: #b9c0bd;
   --text-on-light: #171c1d;

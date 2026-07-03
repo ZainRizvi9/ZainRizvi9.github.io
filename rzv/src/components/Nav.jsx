@@ -1,4 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
 const LINKS = [
@@ -26,6 +27,14 @@ const LINKS = [
 export default function Nav() {
   const { count } = useCart();
   const location = useLocation();
+  const navigate = useNavigate();
+  const [query, setQuery] = useState("");
+
+  function handleSearch(e) {
+    e.preventDefault();
+    const trimmed = query.trim();
+    navigate(trimmed ? `/shop?q=${encodeURIComponent(trimmed)}` : "/shop");
+  }
 
   return (
     <header className="site-header">
@@ -67,19 +76,35 @@ export default function Nav() {
             ))}
           </nav>
 
-          <Link to="/cart" className="nav__cart" aria-label={`Cart, ${count} item${count === 1 ? "" : "s"}`}>
-            <svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M6 8h12l-1 12a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L6 8Z"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinejoin="round"
+          <div className="nav__right">
+            <form className="nav__search" onSubmit={handleSearch} role="search">
+              <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" strokeWidth="1.8" />
+                <path d="M21 21l-4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+              </svg>
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search gear"
+                aria-label="Search products"
               />
-              <path d="M9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" strokeWidth="1.6" />
-            </svg>
-            <span className="mono">({count})</span>
-          </Link>
+            </form>
+
+            <Link to="/cart" className="nav__cart" aria-label={`Cart, ${count} item${count === 1 ? "" : "s"}`}>
+              <svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M6 8h12l-1 12a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L6 8Z"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinejoin="round"
+                />
+                <path d="M9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" strokeWidth="1.6" />
+              </svg>
+              <span className="mono">({count})</span>
+            </Link>
+          </div>
         </div>
       </div>
     </header>

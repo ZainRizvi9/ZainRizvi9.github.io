@@ -6,6 +6,14 @@ import { PRODUCTS, FACET_CONFIG, getFacetOptions, COLORS } from "../data/product
 export default function Shop() {
   const [params, setParams] = useSearchParams();
   const [sort, setSort] = useState("featured");
+  const query = params.get("q") || "";
+
+  function setQuery(value) {
+    const next = new URLSearchParams(params);
+    if (value) next.set("q", value);
+    else next.delete("q");
+    setParams(next, { replace: true });
+  }
 
   // Read active facet selections straight from the URL so filters are shareable / bookmarkable
   const active = useMemo(() => {
@@ -34,21 +42,42 @@ export default function Shop() {
     setParams(new URLSearchParams(), { replace: true });
   }
 
+  function clearSearch() {
+    setQuery("");
+  }
+
   const filtered = useMemo(() => {
     let list = PRODUCTS.filter((p) =>
       FACET_CONFIG.every(({ key }) => active[key].length === 0 || active[key].includes(p[key]))
     );
+
+    const q = query.trim().toLowerCase();
+    if (q) {
+      const words = q.split(/\s+/);
+      list = list.filter((p) => {
+        const haystack = `${p.name} ${p.category} ${p.activity} ${p.material} ${p.color}`.toLowerCase();
+        // Every word in the query has to show up somewhere in the product's
+        // fields — checked as-is and with a trailing "s" trimmed, so
+        // "jackets" still matches a category of "Jackets" and a product
+        // named "Verglas Shell Jacket" either way.
+        return words.every((word) => haystack.includes(word) || haystack.includes(word.replace(/s$/, "")));
+      });
+    }
+
     if (sort === "price-asc") list = [...list].sort((a, b) => a.price - b.price);
     if (sort === "price-desc") list = [...list].sort((a, b) => b.price - a.price);
     if (sort === "name") list = [...list].sort((a, b) => a.name.localeCompare(b.name));
     return list;
-  }, [active, sort]);
+  }, [active, sort, query]);
 
   return (
     <div className="shop">
       <div className="wrap shop__head">
         <div>
-          <p className="eyebrow">{filtered.length} result{filtered.length === 1 ? "" : "s"}</p>
+          <p className="eyebrow">
+            {filtered.length} result{filtered.length === 1 ? "" : "s"}
+            {query && <> for "{query}"</>}
+          </p>
           <h1 className="display-2" style={{ fontSize: 34 }}>
             Shop RZV
           </h1>
@@ -108,8 +137,13 @@ export default function Shop() {
         </aside>
 
         <div className="shop__results">
-          {activeCount > 0 && (
+          {(activeCount > 0 || query) && (
             <div className="chip-row">
+              {query && (
+                <button className="chip" onClick={clearSearch}>
+                  "{query}" <span aria-hidden="true">×</span>
+                </button>
+              )}
               {FACET_CONFIG.flatMap(({ key }) =>
                 active[key].map((val) => (
                   <button key={`${key}-${val}`} className="chip" onClick={() => toggleFacet(key, val)}>
@@ -126,9 +160,13 @@ export default function Shop() {
           {filtered.length === 0 ? (
             <div className="empty-state">
               <p className="display-3" style={{ fontSize: 20 }}>
-                No products match those filters
+                {query ? `Nothing matches "${query}"` : "No products match those filters"}
               </p>
-              <p className="body">Try clearing a filter — the terrain gets wider from here.</p>
+              <p className="body">
+                {query
+                  ? "Try a different word, or clear the search to see everything."
+                  : "Try clearing a filter — the terrain gets wider from here."}
+              </p>
               <button className="btn btn-outline-light" onClick={clearAll}>
                 Clear filters
               </button>
