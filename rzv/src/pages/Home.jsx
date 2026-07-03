@@ -41,8 +41,9 @@ const CATEGORIES = [
 
 export default function Home() {
   // Pull a broad, evenly-spread set of products so the home page reads as a
-  // real catalog rather than 4 items floating in a lot of scenery.
+  // real catalog rather than a handful of items floating in a lot of scenery.
   const featured = PRODUCTS.slice(0, 8);
+  const moreProducts = PRODUCTS.slice(8, 12);
 
   return (
     <>
@@ -112,6 +113,24 @@ export default function Home() {
                 </div>
                 <div className="cat-card__copy mono">{c.copy}</div>
               </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Second product strip, so category photos don't run straight into
+          the editorial photo with no clothing in between */}
+      <section className="featured featured--tight">
+        <div className="wrap">
+          <div className="section-head">
+            <p className="eyebrow">More to shop</p>
+            <Link to="/shop" className="btn-ghost btn" style={{ padding: 0 }}>
+              View all →
+            </Link>
+          </div>
+          <div className="product-grid">
+            {moreProducts.map((p) => (
+              <ProductCard key={p.id} product={p} />
             ))}
           </div>
         </div>

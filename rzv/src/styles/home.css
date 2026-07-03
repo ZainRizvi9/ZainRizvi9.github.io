@@ -179,6 +179,10 @@
   padding: var(--sp-8) 0 var(--sp-4);
 }
 
+.featured--tight {
+  padding: var(--sp-7) 0 var(--sp-4);
+}
+
 /* Survey teaser */
 .survey-teaser {
   background: var(--ink);
