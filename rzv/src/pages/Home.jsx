@@ -40,12 +40,14 @@ const CATEGORIES = [
 ];
 
 export default function Home() {
-  const featured = PRODUCTS.filter((p) => p.tag).slice(0, 4);
+  // Pull a broad, evenly-spread set of products so the home page reads as a
+  // real catalog rather than 4 items floating in a lot of scenery.
+  const featured = PRODUCTS.slice(0, 8);
 
   return (
     <>
       {/* Hero */}
-      <section className="hero">
+      <section className="hero hero--short">
         <PhotoBlock
           className="hero__photo"
           src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1800&q=80"
@@ -70,6 +72,23 @@ export default function Home() {
             <Link to="/shop?activity=Alpine" className="btn btn-outline-dark">
               Shop Alpine
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured products, right below the hero */}
+      <section className="featured">
+        <div className="wrap">
+          <div className="section-head">
+            <p className="eyebrow">New &amp; bestselling</p>
+            <Link to="/shop" className="btn-ghost btn" style={{ padding: 0 }}>
+              View all →
+            </Link>
+          </div>
+          <div className="product-grid">
+            {featured.map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
           </div>
         </div>
       </section>
@@ -121,48 +140,6 @@ export default function Home() {
             <Link to="/shop" className="btn btn-outline-light" style={{ marginTop: 24 }}>
               See the full range
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Full-bleed collection band: incite to action */}
-      <section className="promo-band">
-        <PhotoBlock
-          className="promo-band__photo"
-          src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=1800&q=80"
-          alt="Golden light over sweeping desert sand dunes"
-        />
-        <div className="promo-band__scrim" />
-        <div className="wrap">
-          <div className="promo-band__content">
-            <p className="eyebrow" style={{ color: "var(--mist)" }}>New arrivals</p>
-            <h2 className="display-2" style={{ fontSize: 34 }}>
-              Built for wherever you're headed
-            </h2>
-            <p className="body-lg">
-              The same shell that holds up on an exposed ridge works just as hard on a
-              dust-blown trail. Weather doesn't check the terrain type first — neither do we.
-            </p>
-            <Link to="/shop" className="btn btn-primary">
-              Shop new arrivals
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured / bestsellers */}
-      <section className="featured">
-        <div className="wrap">
-          <div className="section-head">
-            <p className="eyebrow">New &amp; bestselling</p>
-            <Link to="/shop" className="btn-ghost btn" style={{ padding: 0 }}>
-              View all →
-            </Link>
-          </div>
-          <div className="product-grid">
-            {featured.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
           </div>
         </div>
       </section>

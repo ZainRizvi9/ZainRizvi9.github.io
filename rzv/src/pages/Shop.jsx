@@ -3,6 +3,16 @@ import { useSearchParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import { PRODUCTS, FACET_CONFIG, getFacetOptions, COLORS } from "../data/products";
 
+// Common alternate words people search for that don't literally appear
+// anywhere in the product data — folded into the search haystack by category.
+const CATEGORY_SYNONYMS = {
+  Jackets: ["coat", "shell", "outerwear"],
+  "Base Layers": ["shirt", "shirts", "tee", "top", "thermal", "thermals", "undershirt"],
+  Pants: ["trousers", "bottoms", "leggings"],
+  Packs: ["backpack", "bag", "rucksack", "duffel"],
+  Accessories: ["gear"],
+};
+
 export default function Shop() {
   const [params, setParams] = useSearchParams();
   const [sort, setSort] = useState("featured");
@@ -55,11 +65,14 @@ export default function Shop() {
     if (q) {
       const words = q.split(/\s+/);
       list = list.filter((p) => {
-        const haystack = `${p.name} ${p.category} ${p.activity} ${p.material} ${p.color}`.toLowerCase();
+        const synonyms = CATEGORY_SYNONYMS[p.category] || [];
+        const haystack = `${p.name} ${p.category} ${p.activity} ${p.material} ${p.color} ${synonyms.join(" ")}`.toLowerCase();
         // Every word in the query has to show up somewhere in the product's
         // fields — checked as-is and with a trailing "s" trimmed, so
         // "jackets" still matches a category of "Jackets" and a product
-        // named "Verglas Shell Jacket" either way.
+        // named "Verglas Shell Jacket" either way. Synonyms cover the case
+        // where the search word doesn't literally appear anywhere, like
+        // "shirts" for Base Layers.
         return words.every((word) => haystack.includes(word) || haystack.includes(word.replace(/s$/, "")));
       });
     }
