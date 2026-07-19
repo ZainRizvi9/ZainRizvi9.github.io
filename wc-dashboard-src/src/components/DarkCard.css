@@ -1,0 +1,290 @@
+.dark-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: var(--radius);
+  padding: 26px 26px 22px;
+  box-shadow: var(--shadow-card);
+  color: var(--cream);
+  transition: transform 0.18s ease, background 0.18s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.dark-card:hover {
+  transform: translateY(-3px);
+  background: var(--glass-bg-strong);
+}
+
+.dark-card__title {
+  font-size: 1.3rem;
+  color: var(--white);
+}
+
+.dark-card__context {
+  font-size: 0.88rem;
+  color: var(--cream-dim);
+  max-width: 62ch;
+  margin: 8px 0 18px;
+  line-height: 1.5;
+}
+
+.dark-card__hint {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--cream-dim);
+  text-align: center;
+  margin: 8px 0 0;
+  opacity: 0.7;
+}
+
+/* Metric toggle - base structure (was in the now-removed ChartCard.css) */
+.metric-toggle {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+}
+
+.metric-toggle__btn {
+  border: none;
+  background: transparent;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 4px;
+}
+
+/* Metric toggle - dark variant */
+.metric-toggle--dark {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.metric-toggle__btn--dark {
+  color: var(--cream-dim);
+}
+
+.metric-toggle__btn--dark.is-active {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+/* Player chip row (combined line chart selector) */
+.chart-card__empty {
+  padding: 48px 0;
+  text-align: center;
+  color: var(--cream-dim);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.player-chip-row {
+  margin-bottom: 16px;
+}
+
+.player-chip-row__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.player-chip-row__label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  opacity: 0.75;
+}
+
+.player-chip-row__link {
+  background: none;
+  border: none;
+  color: var(--gold-bright);
+  font-size: 0.72rem;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.player-chip-row__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.player-chip-v2 {
+  --chip-color: var(--gold);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1.5px solid var(--chip-color);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--cream);
+  border-radius: 999px;
+  padding: 4px 6px 4px 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.player-chip-v2__name {
+  white-space: nowrap;
+}
+
+.player-chip-v2__val {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: var(--chip-color);
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 999px;
+  padding: 1px 7px;
+  margin-left: 2px;
+}
+
+.player-chip-v2.is-active {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.player-chip-v2:not(.is-active) {
+  opacity: 0.45;
+}
+
+.player-chip-v2.is-eliminated {
+  filter: grayscale(0.3);
+}
+
+.mini-tooltip__flag {
+  font-weight: 400;
+  color: var(--cream-dim);
+  font-size: 0.68rem;
+  font-style: italic;
+}
+
+/* xG legend */
+.xg-legend {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--cream-dim);
+}
+
+.xg-legend__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.xg-legend__swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+}
+
+.xg-legend__swatch--bar {
+  background: var(--gold);
+  border-radius: 3px;
+}
+
+.xg-legend__swatch--dot {
+  background: var(--pitch-bright);
+  border-radius: 50%;
+}
+
+/* Dark stat strip (Goals vs xG detail panel) */
+.dark-stat-strip {
+  margin-top: 14px;
+  background: rgba(0, 0, 0, 0.22);
+  border-radius: var(--radius);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.dark-stat-strip__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--white);
+  white-space: nowrap;
+}
+
+.dark-stat-strip__list {
+  display: flex;
+  gap: 18px;
+  margin: 0 0 0 auto;
+}
+
+.dark-stat-strip__list > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.dark-stat-strip__list dt {
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  opacity: 0.75;
+}
+
+.dark-stat-strip__list dd {
+  margin: 0;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--gold-bright);
+  font-size: 0.95rem;
+}
+
+.dark-stat-strip__note {
+  font-size: 0.75rem;
+  color: var(--cream-dim);
+  font-style: italic;
+  margin: 0 0 0 auto;
+  white-space: nowrap;
+}
+
+/* Mini tooltip for sparklines + composed chart */
+.mini-tooltip {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mini-tooltip__round {
+  font-family: var(--font-mono);
+  color: var(--gold-bright);
+  font-weight: 600;
+  font-size: 0.68rem;
+}
+
+.mini-tooltip__value {
+  font-weight: 700;
+}
+
+.mini-tooltip__sub {
+  color: var(--cream-dim);
+  font-size: 0.7rem;
+}
+
+@media (max-width: 560px) {
+  .dark-stat-strip__list,
+  .dark-stat-strip__note {
+    margin-left: 0;
+  }
+}
