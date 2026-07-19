@@ -1,20 +1,19 @@
 .dark-card {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
   border-radius: var(--radius);
   padding: 26px 26px 22px;
   box-shadow: var(--shadow-card);
   color: var(--cream);
-  transition: transform 0.18s ease, background 0.18s ease;
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
   position: relative;
   overflow: hidden;
 }
 
 .dark-card:hover {
-  transform: translateY(-3px);
-  background: var(--glass-bg-strong);
+  transform: translateY(-2px);
+  background: var(--panel-hover);
+  border-color: rgba(255, 255, 255, 0.14);
 }
 
 .dark-card__title {

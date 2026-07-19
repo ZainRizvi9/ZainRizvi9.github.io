@@ -1,6 +1,7 @@
 import { useState } from "react";
 import LanguageToggle from "./components/LanguageToggle";
 import ScoreboardStats from "./components/ScoreboardStats";
+import HeadToHead from "./components/HeadToHead";
 import PlayerContributionsChart from "./components/PlayerContributionsChart";
 import GoalsVsXGChart from "./components/GoalsVsXGChart";
 import LegendsLineup from "./components/LegendsLineup";
@@ -28,6 +29,7 @@ export default function App() {
 
       <main className="content">
         <p className="content__intro">{t(lang, "intro")}</p>
+        <HeadToHead lang={lang} />
         <div className="charts-grid">
           <PlayerContributionsChart lang={lang} />
           <GoalsVsXGChart lang={lang} />

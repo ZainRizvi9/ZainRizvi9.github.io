@@ -1,15 +1,11 @@
 :root {
-  /* Dark glass canvas — forest green */
-  --bg-base-1: #0c2118;
-  --bg-base-2: #15301f;
-  --blob-forest: 27, 67, 50;
-  --blob-emerald: 52, 140, 100;
-  --blob-gold: 201, 162, 39;
-  --blob-moss: 96, 140, 80;
+  /* Flat dark canvas — near-solid, no glass/blur */
+  --bg-base-1: #0a1410;
+  --bg-base-2: #0d1913;
 
-  --glass-bg: rgba(255, 255, 255, 0.045);
-  --glass-bg-strong: rgba(255, 255, 255, 0.07);
-  --glass-border: rgba(255, 255, 255, 0.09);
+  --panel: #101e17;
+  --panel-border: rgba(255, 255, 255, 0.07);
+  --panel-hover: #142419;
 
   /* Accents */
   --pitch-deep: #1b4332;
@@ -18,21 +14,26 @@
   --gold: #c9a227;
   --gold-bright: #f0cf62;
   --cream: #f7f5f0;
-  --cream-dim: #aab3c5;
+  --cream-dim: #9aa39b;
   --ink: #0e1424;
   --ink-soft: #7c869c;
   --white: #ffffff;
   --red-card: #e65a63;
-  --card-dark: #131a30;
-  --card-dark-alt: #171f38;
+  --card-dark: #101e17;
+  --card-dark-alt: #101e17;
 
-  --font-display: "Fraunces", serif;
+  /* Kept as aliases so nothing else breaks */
+  --glass-bg: var(--panel);
+  --glass-bg-strong: var(--panel-hover);
+  --glass-border: var(--panel-border);
+
+  --font-display: "Space Grotesk", sans-serif;
   --font-body: "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  --radius: 18px;
-  --radius-sm: 12px;
-  --shadow-card: 0 1px 1px rgba(0, 0, 0, 0.2), 0 12px 32px rgba(0, 0, 0, 0.35);
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow-card: 0 1px 1px rgba(0, 0, 0, 0.3), 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -47,10 +48,7 @@ html, body, #root {
 
 body {
   position: relative;
-  background:
-    radial-gradient(ellipse 1100px 800px at 20% -10%, rgba(var(--blob-emerald), 0.35) 0%, transparent 60%),
-    radial-gradient(ellipse 700px 700px at 95% 100%, rgba(var(--blob-gold), 0.1) 0%, transparent 60%),
-    linear-gradient(180deg, var(--bg-base-1) 0%, var(--bg-base-2) 100%);
+  background: linear-gradient(165deg, var(--bg-base-1) 0%, var(--bg-base-2) 100%);
   background-attachment: fixed;
   color: var(--cream);
   font-family: var(--font-body);
@@ -63,7 +61,7 @@ body::after {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.05;
+  opacity: 0.04;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -71,7 +69,7 @@ body::after {
 h1, h2, h3 {
   font-family: var(--font-display);
   font-weight: 600;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.01em;
   margin: 0;
 }
 

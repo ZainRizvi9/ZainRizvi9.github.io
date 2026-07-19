@@ -1,0 +1,142 @@
+.h2h-card {
+  margin-bottom: 4px;
+}
+
+.h2h-selects {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.h2h-select {
+  background: var(--bg-base-1);
+  border: 1px solid var(--panel-border);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  padding: 7px 10px;
+  border-radius: 8px;
+  max-width: 180px;
+}
+
+.h2h-swap {
+  background: none;
+  border: 1px solid var(--panel-border);
+  color: var(--cream-dim);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 0.9rem;
+  flex: 0 0 auto;
+}
+
+.h2h-swap:hover {
+  color: var(--gold-bright);
+  border-color: var(--gold);
+}
+
+.h2h-heads {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  margin-bottom: 24px;
+}
+
+.h2h-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 130px;
+}
+
+.h2h-head__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--white);
+  text-align: center;
+}
+
+.h2h-heads__vs {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--cream-dim);
+  letter-spacing: 0.06em;
+}
+
+.h2h-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.h2h-row {
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.h2h-row__val {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--white);
+}
+
+.h2h-row__val--left {
+  text-align: right;
+}
+
+.h2h-row__val--right {
+  text-align: left;
+}
+
+.h2h-row__track {
+  display: flex;
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--bg-base-1);
+}
+
+.h2h-row__bar {
+  height: 100%;
+  transition: width 0.4s ease;
+}
+
+.h2h-row__bar--left {
+  border-radius: 999px 0 0 999px;
+  margin-left: auto;
+}
+
+.h2h-row__bar--right {
+  border-radius: 0 999px 999px 0;
+}
+
+.h2h-row__label {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  white-space: nowrap;
+}
+
+@media (max-width: 520px) {
+  .h2h-heads {
+    gap: 16px;
+  }
+  .h2h-head {
+    width: 100px;
+  }
+}

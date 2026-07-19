@@ -15,6 +15,8 @@ export const translations = {
     progressRounds: "rounds played",
     progressFinal: "Final · Jul 19",
 
+    h2hTitle: "Head to Head",
+    h2hContext: "Pick any two contenders to compare their goals, assists, and expected goals side by side.",
     chart1Title: "Goal Contributions by Round",
     chart1Context:
       "Hover a player to spotlight their line. Switch metrics to compare goals, assists, or combined contributions round by round. Only the final remains.",
@@ -62,6 +64,8 @@ export const translations = {
     progressRounds: "rondas jugadas",
     progressFinal: "Final · 19 jul",
 
+    h2hTitle: "Cara a Cara",
+    h2hContext: "Elige dos candidatos para comparar sus goles, asistencias y goles esperados uno al lado del otro.",
     chart1Title: "Contribuciones de Gol por Ronda",
     chart1Context:
       "Pasa el cursor sobre un jugador para destacar su línea. Cambia de métrica para comparar goles, asistencias o contribuciones combinadas ronda por ronda. Solo falta la final.",

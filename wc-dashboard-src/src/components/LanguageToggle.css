@@ -14,10 +14,8 @@
 
 .scoreboard-toggle__body {
   display: flex;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
   border-radius: var(--radius-sm);
   padding: 3px;
   gap: 2px;
