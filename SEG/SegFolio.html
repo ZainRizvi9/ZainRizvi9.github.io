@@ -34,7 +34,6 @@ body {
 .cursor { position: fixed; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform 0.1s; }
 .cursor-ring { position: fixed; width: 32px; height: 32px; border: 1px solid var(--accent); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all 0.18s ease; opacity: 0.5; }
 
-/* Nav overrides */
 .navbar {
   background: rgba(15,14,71,0.92) !important;
   backdrop-filter: blur(16px);
@@ -57,7 +56,6 @@ body {
 .navbar-toggler { border-color: var(--border); }
 .navbar-toggler-icon { filter: invert(1); }
 
-/* Hero */
 #hero {
   min-height: 100vh;
   display: flex;
@@ -134,7 +132,6 @@ body {
 }
 .hero-scroll::before { content: ''; width: 1px; height: 60px; background: var(--border); }
 
-/* Section label */
 .section-label {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.7rem;
@@ -148,7 +145,6 @@ body {
 }
 .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-/* About */
 section { padding: 8rem 0 4rem; }
 .about-text h2 {
   font-family: 'Playfair Display', serif;
@@ -161,7 +157,6 @@ section { padding: 8rem 0 4rem; }
 .about-text a { color: var(--accent); text-decoration: none; }
 .about-text a:hover { text-decoration: underline; }
 
-/* Stats */
 .stat-box {
   background: var(--bg2);
   padding: 2rem 1.5rem;
@@ -182,7 +177,6 @@ section { padding: 8rem 0 4rem; }
   text-transform: uppercase;
 }
 
-/* Work grid */
 .work-item {
   background: var(--bg2);
   padding: 2.5rem 2rem;
@@ -201,7 +195,6 @@ section { padding: 8rem 0 4rem; }
 .work-item a { color: var(--accent); text-decoration: none; }
 .work-item a:hover { text-decoration: underline; }
 
-/* Cards */
 .project-card {
   background: var(--card);
   border: 1px solid var(--border) !important;
@@ -244,7 +237,6 @@ section { padding: 8rem 0 4rem; }
   margin-top: auto;
 }
 
-/* Reveal */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.visible { opacity: 1; transform: none; }
 
@@ -267,7 +259,6 @@ footer p { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: va
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- Bootstrap Navbar -->
 <nav class="navbar navbar-expand-md fixed-top">
   <div class="container">
     <a class="navbar-brand" href="#">ZR</a>
@@ -284,7 +275,6 @@ footer p { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: va
   </div>
 </nav>
 
-<!-- Hero -->
 <section id="hero" class="container">
   <p class="hero-eyebrow reveal">SEG3125 · University of Ottawa</p>
   <h1 class="hero-name reveal" style="transition-delay:0.1s;">Zain<br/><em>Rizvi</em></h1>
@@ -296,7 +286,6 @@ footer p { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: va
   <div class="hero-scroll">Scroll</div>
 </section>
 
-<!-- About -->
 <section id="about">
   <div class="container">
     <div class="section-label">01 / About</div>
@@ -310,7 +299,6 @@ footer p { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: va
         </div>
       </div>
       <div class="col-md-6">
-        <!-- Bootstrap grid for stats -->
         <div class="row g-0 reveal" style="transition-delay:0.15s;">
           <div class="col-6"><div class="stat-box"><div class="stat-num">3rd</div><div class="stat-label">Year CS co-op</div></div></div>
           <div class="col-6"><div class="stat-box"><div class="stat-num">4</div><div class="stat-label">Case studies this sem</div></div></div>
@@ -322,30 +310,26 @@ footer p { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: va
   </div>
 </section>
 
-<!-- How I Work -->
 <section id="work">
   <div class="container">
     <div class="section-label">02 / How I Work</div>
-    <!-- Bootstrap grid for work items -->
     <div class="row g-0 reveal">
       <div class="col-md-6"><div class="work-item"><h4>Where I'm at</h4><p>I don't have a formal design background. I'm taking SEG3125 to actually learn UI/UX properly instead of just winging it whenever I build a frontend. So far I've been figuring out how to think about layout and hierarchy before jumping into code.</p></div></div>
       <div class="col-md-6"><div class="work-item"><h4>What I'm learning</h4><p>Visual hierarchy, scale, balance, contrast. Mostly through the course lectures and <a href="https://www.nngroup.com" target="_blank">NN/g videos</a>. Each case study is me trying to actually apply that stuff, not just read about it.</p></div></div>
-      <div class="col-md-6"><div class="work-item"><h4>Tech stack</h4><p>HTML, CSS, JavaScript, Bootstrap 5. I already know React and Node from other projects so the JS side isn't new. The design thinking side is what I'm here to actually develop.</p></div></div>
-      <div class="col-md-6"><div class="work-item"><h4>As the semester goes on</h4><p>This section will get updated as I finish each case study. I'll add notes on what design decisions I made and why, and what I'd probably do differently in hindsight.</p></div></div>
+      <div class="col-md-6"><div class="work-item"><h4>Tech stack</h4><p>HTML, CSS, JavaScript, Bootstrap 5, and React for the last two case studies. I already knew React and Node from other projects so the JS side wasn't new. The design thinking side is what I was here to actually develop.</p></div></div>
+      <div class="col-md-6"><div class="work-item"><h4>Looking back</h4><p>Each case study pushed a different part of this: layout and content strategy for the service site, interaction design for the memory game, information architecture for the e-commerce site, and visualization plus internationalization for the dashboard.</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- Case Studies -->
 <section id="projects">
   <div class="container">
     <div class="section-label">03 / Case Studies</div>
-    <!-- Bootstrap card grid -->
     <div class="row g-4">
       <div class="col-md-6 col-lg-3 reveal">
         <a href="https://zainrizvi9.github.io/zcutz/" style="text-decoration:none;">
         <div class="card project-card">
-          <img src="mcutz.jpeg" class="card-img-top" alt="Service site preview" style="height:180px;object-fit:cover;opacity:0.75;"/>
+          <img src="zcutz.png" class="card-img-top" alt="Service site preview" style="height:180px;object-fit:cover;opacity:0.75;"/>
           <div class="card-body">
             <div class="project-num">01</div>
             <h3 class="card-title">Service Site - ZCUTZ</h3>
@@ -358,13 +342,12 @@ footer p { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: va
       <div class="col-md-6 col-lg-3 reveal" style="transition-delay:0.05s;">
         <a href="https://zainrizvi9.github.io/reelrecall/" style="text-decoration:none;">
         <div class="card project-card">
-          <img src="card.jpeg" class="card-img-top" alt="Memory game preview" style="height:180px;object-fit:cover;opacity:0.75;"/>
+          <img src="reel.png" class="card-img-top" alt="Memory game preview" style="height:180px;object-fit:cover;opacity:0.75;"/>
           <div class="card-body">
             <div class="project-num">02</div>
             <h3 class="card-title">Memory Game - ReelRecall</h3>
             <p class="project-type">ReelRecall!</p>
-            <p class="card-text">An interactive memory card game regarding movies and their posters</p>
-            <span class="coming-badge">Coming Soon</span>
+            <p class="card-text">An interactive memory card game built around movies and their posters, with a flip animation and match tracking.</p>
           </div>
         </div>
         </a>
@@ -372,7 +355,7 @@ footer p { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: va
       <div class="col-md-6 col-lg-3 reveal" style="transition-delay:0.1s;">
         <a href="https://zainrizvi9.github.io/rzv/" style="text-decoration:none;">
         <div class="card project-card">
-          <img src="ecomm.jpeg" class="card-img-top" alt="E-commerce site preview" style="height:180px;object-fit:cover;opacity:0.75;"/>
+          <img src="rzv.png" class="card-img-top" alt="E-commerce site preview" style="height:180px;object-fit:cover;opacity:0.75;"/>
           <div class="card-body">
             <div class="project-num">03</div>
             <h3 class="card-title">RZV - Outdoor apparel</h3>
@@ -383,15 +366,14 @@ footer p { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: va
         </a>
       </div>
       <div class="col-md-6 col-lg-3 reveal" style="transition-delay:0.15s;">
-        <a href="coming-soon.html" style="text-decoration:none;">
+        <a href="https://zainrizvi9.github.io/wc-dashboard/" style="text-decoration:none;">
         <div class="card project-card">
-          <img src="nba.png" class="card-img-top" alt="Analytics dashboard preview" style="height:180px;object-fit:cover;opacity:0.75;"/>
+          <img src="WC.png" class="card-img-top" alt="World Cup dashboard preview" style="height:180px;object-fit:cover;opacity:0.75;"/>
           <div class="card-body">
             <div class="project-num">04</div>
-            <h3 class="card-title">Analytics Dashboard</h3>
-            <p class="project-type">BI, sports stats, data viz</p>
-            <p class="card-text">Probably going the sports analytics route since I've already built stuff like that. The challenge is making a data heavy interface readable without it feeling overwhelming.</p>
-            <span class="coming-badge">Coming Soon</span>
+            <h3 class="card-title">World Cup Golden Boot Tracker</h3>
+            <p class="project-type">bilingual dashboard, sports data</p>
+            <p class="card-text">A bilingual dashboard tracking the 2026 World Cup Golden Boot race: goals, assists, and expected goals for the leading contenders, in English and Spanish.</p>
           </div>
         </div>
         </a>
